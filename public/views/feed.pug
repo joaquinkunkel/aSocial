@@ -68,6 +68,11 @@ html(lang="en")
                       h2(style="color:"+rColors[index+5])= (Math.floor((reactions[index+5]/(reactions[index]+reactions[index+5]))*100)) + "%"
                       p= reactionWords[index+5]
                       p(class="small-label")= "(" + (100-(Math.floor((reactions[index+5]/(reactions[index]+reactions[index+5]))*100))) + "% " + reactionWords[index] + ")"
+          p(class="small-label") 
+            br
+            span These traits are based on the
+            a(href="http://www.businessinsider.com/big-five-personality-traits-2016-12") Big Five
+            span personality traits. 
       div(class="feedbody")
         script var postsLength = 0;
         script var notifications = [];
@@ -155,11 +160,11 @@ html(lang="en")
                         p stable
               div(class="cheading")
                 hr
-              form(class="commentform")
+              form(class="commentform" onsubmit="submitComment()")
                 //input(type="text" class="id" value=_id)
                 //input(type="text" class="id" value=post._id)
-                textarea(rows="1" class="comment-text")
-                button(type="button" class="comment-button")
+                input(type="text" class="comment-text")
+                button(type="submit" class="comment-button")
                   i(class="material-icons") check
               form(class="shareform")
                 div(class="part1")
@@ -176,7 +181,7 @@ html(lang="en")
               div(class="comments")
                 each comment in post.comments
                   div(class="comment")
-                    p(class="date")= months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year
+                    p(class="date")= name.split(" ")[0] + " - " + months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year
                     p(class="text" style="opacity:" + post.memory)= comment.text
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous")

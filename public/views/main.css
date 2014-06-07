@@ -148,6 +148,11 @@ input[type=date], select{
   height: 2.2rem;
 }
 
+.small-label a{
+  padding: 0.2rem !important;
+  margin: auto 0.3rem !important;
+}
+
 a:not(.arrow):hover, button:hover, input[type=text]:hover, input[type=text]:focus, input[type=date]:hover, input[type=date]:focus, textarea:focus, .active-button, select:hover, .post-buttons .button:hover{
   cursor: default;
   background: #3f7fff !important;

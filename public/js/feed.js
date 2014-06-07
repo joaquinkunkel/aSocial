@@ -5,7 +5,7 @@ var date = new Date;
 var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
 var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
 var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
-var blankPostHTML = '<p class="post_id">5a23a21e6943fd4f6f10c1ec</p><table class="top"><tbody><tr><td><div class="reactview" style="background:undefined; opacity:1;"><h5 class="blankreaction">...</h5></div></td><td class="top"><p class="date">December 3, 2017</p><p class="text" style="opacity:1;">Yet another one</p></td></tr></tbody></table><div class="post-buttons"><i class="button material-icons reactme">mood</i><i class="button material-icons commentme">mode_comment</i><i class="button material-icons share">send</i><i class="button material-icons forget red" id="forget">delete</i></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted                      </p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div><div class="cheading"><hr></div><form class="commentform"><!--input(type="text" class="id" value=_id)--><!--input(type="text" class="id" value=post._id)--><textarea class="comment-text" rows="1"></textarea><button class="comment-button" type="button"><i class="material-icons">check</i></button></form><form class="shareform"><div class="part1"><p class="faded">Share with</p><select class="recipient"><option class="self" value="self">Joaquin</option><option value="and I">and I</option><option value="Myself">Myself</option><option value="Sara">Sara</option><option value="Reine">Reine</option><option value="Karime">Karime</option><option value="Elisa">Elisa</option><option value="Erik">Erik</option><option value="Daniel">Daniel</option><option value="Arantza">Arantza</option><option value="Lizard Person">Lizard Person</option><option value="Snake">Snake</option><option value="Tayla">Tayla</option></select></div><div class="part2"><p class="from faded">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button"><i class="material-icons">check</i></button></form><div class="comments"></div>'
+var blankPostHTML = '<p class="post_id">5a23a21e6943fd4f6f10c1ec</p><table class="top"><tbody><tr><td><div class="reactview" style="background:undefined; opacity:1;"><h5 class="blankreaction">...</h5></div></td><td class="top"><p class="date">December 3, 2017</p><p class="text" style="opacity:1;">Yet another one</p></td></tr></tbody></table><div class="post-buttons"><i class="button material-icons reactme">mood</i><i class="button material-icons commentme">mode_comment</i><i class="button material-icons share">send</i><i class="button material-icons forget red" id="forget">delete</i></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted</p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div><div class="cheading"><hr></div><form class="commentform" onsubmit="submitComment()"><!--input(type="text" class="id" value=_id)--><!--input(type="text" class="id" value=post._id)--><input type="text" class="comment-text"></input><button class="comment-button" type="submit"><i class="material-icons">check</i></button></form><form class="shareform"><div class="part1"><p class="faded">Share with</p><select class="recipient"><option class="self" value="self">Joaquin</option><option value="and I">and I</option><option value="Myself">Myself</option><option value="Sara">Sara</option><option value="Reine">Reine</option><option value="Karime">Karime</option><option value="Elisa">Elisa</option><option value="Erik">Erik</option><option value="Daniel">Daniel</option><option value="Arantza">Arantza</option><option value="Lizard Person">Lizard Person</option><option value="Snake">Snake</option><option value="Tayla">Tayla</option></select></div><div class="part2"><p class="from faded">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button"><i class="material-icons">check</i></button></form><div class="comments"></div>'
 var writePostHTML;
 var active;
 
@@ -242,11 +242,12 @@ function appendMonths(){
 
     $("#monthpick").css("opacity", "0");
     $(".monthbutton").click(function(){
+      $("#dateform").css("display", "none");
       var scrollPost = $(this).attr("id").split(',')[1];
       $('html, body').animate({
         scrollTop: $("#" + scrollPost).offset().top - 85
       }, 1500);
-      console.log($("#" + scrollPost).offset().top);
+      console.log("#" + scrollPost);
     });
 
   });
@@ -475,10 +476,12 @@ function enableComments(){
         $(this).parent().parent().find(".cheading").css("display", "none");
     }
   });
-  $(".comment-button").unbind().click(function(){
-    postIndex = $(this).parent().parent().attr('id');
-    var comment_text = $(this).prev().val();
-    var id = $(this).parent().parent().find('.post_id').html();
+
+  $(".commentform").submit(function(event) {
+    event.preventDefault();
+    postIndex = $(this).closest(".post").attr('id');
+    var comment_text = $(this).find(".comment-text").val();
+    var id = $(this).closest(".post").find('.post_id').html();
     console.log('post id ' + id);
     console.log('person id ' + personId);
     if(comment_text != ''){
@@ -498,11 +501,11 @@ function enableComments(){
         },
         success: function(comment){
           console.log('new comment!', JSON.stringify(comment));
-          $("#" + postIndex + " .comments").append("<div class='comment'><p class='date'>" + months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year + "</p><p class='text'>" + comment.text + "</p>")
+          $("#" + postIndex + " .comments").append("<div class='comment'><p class='date'>" + personName.split(" ")[0] + " - " + months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year + "</p><p class='text'>" + comment.text + "</p>")
           $("#" + postIndex).find(".cheading").css("display", "block");
           $("#" + postIndex).find(".commentme").removeClass("active-button");
           $("#" + postIndex).find(".commentform").css("display", "none");
-          $("#" + postIndex).find("#comment-text").val("");
+          $("#" + postIndex).find(".comment-text").val("");
         },
         error: function(err){
           console.log(err);
