@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    title Sign up | aSocial
+    style
+      include main.css
+  body
+    h1
+      a(href="/") aSocial
+    a(href="/") Back to login
+    form(action="/newprofile", method="post")
+      input(type="text", name="name")
+      br
+      input(type="text", name="email")
+      br
+      input(type="password", name="password")
+      br
+      input(type="submit", value="Create my account")
+      FRIENDS: ONE INPUT field, separate them with a comma

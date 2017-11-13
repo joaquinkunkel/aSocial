@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    title aSocial
+    style
+      include main.css
+  body
+    h1
+      a(href="/") aSocial
+    p Don't have an account yet?
+      a(href="/signup") Register
+    form(action="/newprofile", method="post")
+      input(type="text", name="email")
+      br
+      input(type="password", name="password")
+      br
+      input(type="submit", value="Log in")

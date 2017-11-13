@@ -1,0 +1,13 @@
+doctype html
+html(lang="en")
+  head
+    title aSocial
+    style
+      include main.css
+  body
+    h1 aSocial
+    div(class="posts")
+      each val in posts
+        div(class="post")
+          p #{val}
+    a(href="/") Log in
