@@ -55,9 +55,9 @@ app.post('/home', function(req, res){
 
   Person.find({'email': body.user_email, 'password': body.user_password}, function(err, profile){
     //console.log("finding!\nbody.email = " + body.user_email + "\nbody.password = " + body.user_password);
-    if(profile){
-      console.log('logging in as ' + profile);
-      res.render('feed', profile);
+    if(profile[0]){
+      console.log('logging in as ' + profile[0]);
+      res.render('feed', profile[0]);
     }
     else{
       res.render('incorrect_login');
@@ -81,7 +81,7 @@ app.post('/writepost', function(req, res){
     reactions: [],
     image: ''
   });
-  
+
 });
 
 //we connect to the database. "test" here refers to the specific database that we want to connect to

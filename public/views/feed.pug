@@ -9,7 +9,7 @@ html(lang="en")
   body
     h1 aSocial
     div(id="posts_heading")
-      p(id="newpost") New post
+      p(id="newpost")= 'New post'
       form(id="writepost" action="/newpost" method="post")
         input(type="text", name="post_text")
         input(type="submit" val="Post")
