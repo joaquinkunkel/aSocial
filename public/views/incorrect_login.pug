@@ -9,7 +9,8 @@ html(lang="en")
       a(href="/") aSocial
     p Don't have an account yet?
       a(href="/signup") Register
-    form(action="/login" method="post")
+    p Incorrect e-mail or password. Please try again.
+    form(action="/home" method="post")
       input(type="text", name="user_email")
       br
       input(type="password", name="user_password")

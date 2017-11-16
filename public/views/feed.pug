@@ -7,17 +7,20 @@ html(lang="en")
     style
       include feed.css
   body
-    h1 aSocial
+    h1
+      a(href="/") aSocial
     div(id="posts_heading")
+      h2= 'Welcome, '
+        span(class="name")= name + '.'
+      p Here's your feed.
       p(id="newpost")= 'New post'
-      form(id="writepost" action="/newpost" method="post")
-        input(type="text", name="post_text")
-        input(type="submit" val="Post")
+      div(id="writepost")
+        input(type="text", name="post_text", id="post_text")
+        button(id="postbutton") Post
     div(class="posts")
       each post in posts
         div(class="post")
-          p= months[post.date.month] + " " + post.date.day + ", " + post.date.year
-          p= post.text
-          
+          p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
+          p(class="text")= post.text
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")          
     script(src="../js/feed.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

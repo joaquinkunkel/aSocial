@@ -5,7 +5,7 @@ var app = new express();
 var pug = require('pug');
 var port = 8009;
 var bp = require('body-parser');
-
+var profileId = 0;
 
 //Will change if the user is logged in.
 var loggedIn = false;
@@ -24,8 +24,10 @@ app.listen(port, function(){
 
 //Default (home screen)
 app.get('/', function(req, res){
-  if(loggedIn)
-    res.render('index');
+  if(profileId != 0)
+    Person.findById(profileId, function(err, doc){
+      res.render('feed', doc);
+    });
   else
     res.render('login');
 });
@@ -37,27 +39,66 @@ app.get('/signup', function(req, res){
 
 //When we go directly to the feed, when the user is already logged in.
 app.get('/feed', function(req, res){
-  res.render('feed', {}); //Pass the object of the user.
+  var profile = Person.findById(profileId, function(err, doc){
+    console.log("displaying feed: ", doc);
+    res.render('feed', doc);
+  });
 });
 
 //When we receive a call to sign up
 app.post('/newprofile', function(req, res){
+  //To create a new profile
+  function createProfile(pName, pEmail, pPassword, pFriends){
+    var date = new Date;
+    firstPost = new Post({
+        text:"Welcome to aSocial! Start by writing a post or uploading a photo.",
+        date: {
+          day: date.getDate(),
+          month: date.getMonth(),
+          year: date.getFullYear()
+        },
+        comments: [],
+        reactions: [],
+        image:''
+      });
+
+    var profile = new Person({
+      name: pName,
+      email: pEmail,
+      password: pPassword,
+      friends: pFriends,
+      posts: [firstPost]
+      //posts: ['hello pedro']
+    });
+
+    profile.save(function(err, profile){
+      if(err){
+        return console.error(err);
+      }else{
+        console.log('Successfully saved new profile: ' + profile.email);
+        profileId = profile._id;
+        res.send(profile);
+      }
+    });
+  };
+
   var body = req.body;
   //console.log(body);
   createProfile(body.user_name, body.user_email, body.user_password, body.user_friends);
-  //Use the email as a key for findProfile
 });
 
 //When someone tries to log in
-app.post('/home', function(req, res){
+app.post('/login', function(req, res){
   var body = req.body;
   var found = 0;
 
-  Person.find({'email': body.user_email, 'password': body.user_password}, function(err, profile){
+  Person.find({'email': body.user_email, 'password': body.user_password}, function(err, profiles){
     //console.log("finding!\nbody.email = " + body.user_email + "\nbody.password = " + body.user_password);
-    if(profile[0]){
-      console.log('logging in as ' + profile[0]);
-      res.render('feed', profile[0]);
+    if(profiles[0]){
+      console.log('logging in as ' + profiles[0]);
+      res.render('feed', profiles[0]);
+      profileId = profiles[0]._id;
+
     }
     else{
       res.render('incorrect_login');
@@ -68,20 +109,19 @@ app.post('/home', function(req, res){
 });
 
 app.post('/writepost', function(req, res){
-  var date = new Date;
   var body = req.body;
-  var newpost = new Post({
-    text: body.post_text,
-    date: {
-      day: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear()
-    },
-    comments: [],
-    reactions: [],
-    image: ''
+  var newPost = new Post(body);
+  var newPosts;
+  console.log("wrote new post: " + JSON.stringify(newPost));
+  console.log("finding", profileId);
+  Person.findById(profileId, function(err, doc){
+    newPosts = doc.posts;
+    newPosts.unshift(newPost);
+    doc.posts = newPosts;
+    doc.save(function(err, updatedPost){
+      res.send(updatedPost);
+    });
   });
-
 });
 
 //we connect to the database. "test" here refers to the specific database that we want to connect to
@@ -104,6 +144,7 @@ my_database.on('error', console.error.bind(console, 'connection error:'));
 //we can also do other things like check for existing data, etc.
 
 var Person;
+var Post;
 
 my_database.on('open', function(){
   console.log("Connections to the database successful!");
@@ -135,24 +176,3 @@ my_database.on('open', function(){
   });
 
 });
-
-//To create a new profile
-function createProfile(pName, pEmail, pPassword, pFriends){
-  var date = new Date;
-  var profile = new Person({
-    name: pName,
-    email: pEmail,
-    password: pPassword,
-    friends: pFriends,
-    posts: [{text:"Welcome to aSocial! Start by writing a post or uploading a photo.", date: {day: date.getDate(), month: date.getMonth(), year: date.getFullYear()}, comments: [], reactions: [], image:''}]
-    //posts: ['hello pedro']
-  });
-
-  profile.save(function(err, profile){
-    if(err){
-      return console.error(err);
-    }else{
-      console.log('Successfully saved new profile: ' + profile.email);
-    }
-  });
-};
