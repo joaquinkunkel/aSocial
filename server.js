@@ -22,6 +22,7 @@ app.listen(port, function(){
   console.log('Server started on port', port);
 });
 
+//Default (home screen)
 app.get('/', function(req, res){
   if(loggedIn)
     res.render('index');
@@ -29,20 +30,58 @@ app.get('/', function(req, res){
     res.render('login');
 });
 
+//When a user wants to sign up
 app.get('/signup', function(req, res){
   res.render('signup');
 });
 
+//When we go directly to the feed, when the user is already logged in.
 app.get('/feed', function(req, res){
-  res.render('feed', {name: 'Pierre', posts: ['hey', 'there']});
+  res.render('feed', {}); //Pass the object of the user.
 });
 
+//When we receive a call to sign up
 app.post('/newprofile', function(req, res){
   var body = req.body;
-  createProfile(body.name, body.email, body.password, body.friends); //FRIENDS
-  //function to return object with all of the user's data
+  //console.log(body);
+  createProfile(body.user_name, body.user_email, body.user_password, body.user_friends);
   //Use the email as a key for findProfile
-  res.render('feed', {n: 'Pierre', posts: ['hey', 'there']});
+});
+
+//When someone tries to log in
+app.post('/home', function(req, res){
+  var body = req.body;
+  var found = 0;
+
+  Person.find({'email': body.user_email, 'password': body.user_password}, function(err, profile){
+    //console.log("finding!\nbody.email = " + body.user_email + "\nbody.password = " + body.user_password);
+    if(profile){
+      console.log('logging in as ' + profile);
+      res.render('feed', profile);
+    }
+    else{
+      res.render('incorrect_login');
+      console.log('incorrect login');
+    }
+  });
+
+});
+
+app.post('/writepost', function(req, res){
+  var date = new Date;
+  var body = req.body;
+  var newpost = new Post({
+    text: body.post_text,
+    date: {
+      day: date.getDate(),
+      month: date.getMonth(),
+      year: date.getFullYear()
+    },
+    comments: [],
+    reactions: [],
+    image: ''
+  });
+  
 });
 
 //we connect to the database. "test" here refers to the specific database that we want to connect to
@@ -69,7 +108,7 @@ var Person;
 my_database.on('open', function(){
   console.log("Connections to the database successful!");
 
-  //Schema. Will we use this for profiles? Posts?
+  //Schema for a profile.
   var personSchema = mongoose.Schema({
     name: String,
     email: String,
@@ -78,9 +117,19 @@ my_database.on('open', function(){
     posts: Array
   });
 
-  Person = mongoose.model('Person', personSchema);
+  //Schema for a post.
+  var postSchema = mongoose.Schema({
+    text: String,
+    date: Object,
+    comments: Array,
+    reactions: Array,
+    image: String
+  })
 
-  //For testing purposes only. Logs all profiles.
+  Person = mongoose.model('Person', personSchema);
+  Post = mongoose.model('Post', postSchema);
+
+  //For testing purposes. Logs all profiles.
   Person.find(function(err, all_profiles){
     console.log(all_profiles);
   });
@@ -89,19 +138,21 @@ my_database.on('open', function(){
 
 //To create a new profile
 function createProfile(pName, pEmail, pPassword, pFriends){
+  var date = new Date;
   var profile = new Person({
     name: pName,
     email: pEmail,
     password: pPassword,
     friends: pFriends,
-    posts: ['welcome']
+    posts: [{text:"Welcome to aSocial! Start by writing a post or uploading a photo.", date: {day: date.getDate(), month: date.getMonth(), year: date.getFullYear()}, comments: [], reactions: [], image:''}]
+    //posts: ['hello pedro']
   });
 
   profile.save(function(err, profile){
     if(err){
       return console.error(err);
     }else{
-      console.log('Successfully saved new profile: ' + profile.name);
+      console.log('Successfully saved new profile: ' + profile.email);
     }
   });
 };

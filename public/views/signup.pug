@@ -8,12 +8,23 @@ html(lang="en")
     h1
       a(href="/") aSocial
     a(href="/") Back to login
-    form(action="/newprofile", method="post")
-      input(type="text", name="name")
+    form(id="signupform" method="post")
+      p name
+      input(type="text", id="name")
       br
-      input(type="text", name="email")
+      p e-mail address
+      input(type="text", id="email")
       br
-      input(type="password", name="password")
+      p password
+      input(type="password", id="password")
       br
-      input(type="submit", value="Create my account")
-      FRIENDS: ONE INPUT field, separate them with a comma
+      div(id="friendsform")
+        h2 My friends
+        p Who are your friends? Add them to your list.
+        input(type="text", class="friend")
+        br
+      p(class="button" id="addfriend") Add a friend
+      h2(id="submitform") Create my account
+
+      script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+      script(src="../js/signup.js")

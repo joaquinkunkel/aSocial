@@ -7,11 +7,13 @@ html(lang="en")
   body
     h1
       a(href="/") aSocial
-    p Don't have an account yet?
+    p Don't have an account yet? 
       a(href="/signup") Register
-    form(action="/newprofile", method="post")
-      input(type="text", name="email")
+    form(action="/home" method="post")
+      input(type="text", name="user_email")
       br
-      input(type="password", name="password")
+      input(type="password", name="user_password")
       br
-      input(type="submit", value="Log in")
+      input(type="submit" val="Log in")
+
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")

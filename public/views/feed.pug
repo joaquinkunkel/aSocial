@@ -1,13 +1,23 @@
+-
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 doctype html
 html(lang="en")
   head
     title aSocial
     style
-      include main.css
+      include feed.css
   body
     h1 aSocial
+    div(id="posts_heading")
+      p(id="newpost") New post
+      form(id="writepost" action="/newpost" method="post")
+        input(type="text", name="post_text")
+        input(type="submit" val="Post")
     div(class="posts")
-      each val in posts
+      each post in posts
         div(class="post")
-          p #{val}
-    a(href="/") Log in
+          p= months[post.date.month] + " " + post.date.day + ", " + post.date.year
+          p= post.text
+          
+    script(src="../js/feed.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
