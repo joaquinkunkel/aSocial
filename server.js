@@ -5,7 +5,6 @@ var app = new express();
 var pug = require('pug');
 var port = 8009;
 var bp = require('body-parser');
-var profileId = 0;
 
 //Will change if the user is logged in.
 var loggedIn = false;
@@ -24,25 +23,28 @@ app.listen(port, function(){
 
 //Default (home screen)
 app.get('/', function(req, res){
+  /*
   if(profileId != 0)
     Person.findById(profileId, function(err, doc){
       res.render('feed', doc);
     });
   else
     res.render('login');
+    */
+  res.render('login');
+});
+
+//When someone wants to go back home: By default, re-render the feed.
+app.post('/', function(req, res){
+  console.log('yas');
+  Person.findById(req.body.id, function(err, doc){
+    res.render('feed', doc);
+  });
 });
 
 //When a user wants to sign up
 app.get('/signup', function(req, res){
   res.render('signup');
-});
-
-//When we go directly to the feed, when the user is already logged in.
-app.get('/feed', function(req, res){
-  var profile = Person.findById(profileId, function(err, doc){
-    console.log("displaying feed: ", doc);
-    res.render('feed', doc);
-  });
 });
 
 //When we receive a call to sign up
@@ -76,15 +78,15 @@ app.post('/newprofile', function(req, res){
         return console.error(err);
       }else{
         console.log('Successfully saved new profile: ' + profile.email);
-        profileId = profile._id;
-        res.send(profile);
+        res.render('feed', profile);
       }
     });
   };
 
   var body = req.body;
   //console.log(body);
-  createProfile(body.user_name, body.user_email, body.user_password, body.user_friends);
+  friendsArray = body.user_friends.split(",");
+  createProfile(body.user_name, body.user_email, body.user_password, friendsArray);
 });
 
 //When someone tries to log in
@@ -97,8 +99,6 @@ app.post('/login', function(req, res){
     if(profiles[0]){
       console.log('logging in as ' + profiles[0]);
       res.render('feed', profiles[0]);
-      profileId = profiles[0]._id;
-
     }
     else{
       res.render('incorrect_login');
@@ -110,16 +110,18 @@ app.post('/login', function(req, res){
 
 app.post('/writepost', function(req, res){
   var body = req.body;
-  var newPost = new Post(body);
+  var newPost = new Post(body.post);
   var newPosts;
+  var profileId = body.user_id;
+  console.log("HERE IS BODY" + JSON.stringify(body));
   console.log("wrote new post: " + JSON.stringify(newPost));
   console.log("finding", profileId);
   Person.findById(profileId, function(err, doc){
     newPosts = doc.posts;
     newPosts.unshift(newPost);
     doc.posts = newPosts;
-    doc.save(function(err, updatedPost){
-      res.send(updatedPost);
+    doc.save(function(err, newDoc){
+      res.send(newDoc.posts[0]);
     });
   });
 });
