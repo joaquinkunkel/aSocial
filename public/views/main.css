@@ -1,0 +1,124 @@
+#writepost{
+  display: none;
+}
+
+body{
+  background-color: rgba(0, 0, 0, 0.02) !important;
+  font-family: "Helvetica" !important;
+}
+
+header{
+  padding: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: white;
+}
+
+.logo{
+  color: black !important;
+  border: none !important;
+  background: none !important;
+  font-size: 1.5rem !important;
+  padding: 0 !important;
+  margin: none !important;
+  transition: 0.1s all;
+}
+
+.logo:hover{
+  color: #4E77FF !important;
+  text-decoration: none !important;
+  background: none;
+}
+
+a, button, .button, input{
+  padding: 0.4rem 0.8rem;
+  transition: 0.1s all;
+  color: #4E77FF !important;
+  margin: 5px !important;
+  outline-color: transparent;
+  outline-style: none;
+}
+
+a, button, .button, input[type=submit]{
+  background: transparent;
+  border: none;
+  border-radius: 1rem !important;
+}
+
+a:hover, button:hover, input:hover, input:focus{
+  cursor: default;
+  background: #4E77FF;
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.content{
+  margin: 5rem auto 0 auto;
+  width: 95%;
+  max-width: 500px;
+  justify-content: center;
+}
+
+form{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.card:hover{
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.card{
+  border: none !important;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin: 0.6rem;
+  border-radius: 5px;
+  padding: 0.8rem;
+  transition: 0.1s all;
+}
+
+input[type=text], input[type=password], input[type=text]:hover, input[type=password]:hover{
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.card .date{
+  font-size: 1rem;
+  opacity: 0.4;
+  padding: 0;
+  margin: 0;
+}
+
+.card .text{
+  margin: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.post-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -5px auto;
+}
+
+
+#comment, #share{
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+#comment:hover, #share:hover{
+  background: transparent;
+  color: #4E77FF !important;
+}

@@ -4,25 +4,29 @@ html(lang="en")
     title Sign up | aSocial
     style
       include main.css
+      include signup.css
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
   body
-    h1
-      a(href="/") aSocial
-    a(href="/") Back to login
-    form(id="signupform" action = "/newprofile" method="post")
-      p name
-      input(type="text" name="user_name" id="name")
-      br
-      p e-mail address
-      input(type="text" name="user_email" id="email")
-      br
-      p password
-      input(type="password" name="user_password" id="password")
-      br
-      div(id="friendsform")
-        h2 My friends
-        p Who are your friends? Add them to your list, separated by commas.
-        input(type="text" name="user_friends")
-      input(type="submit" val="Create my account")
+    header(style="padding: 10px")
+      a(href="/" class="logo") aSocial
+    div(class="content")
+      a(href="/") Back to login
+      form(id="signupform" action = "/newprofile" method="post")
+        p name
+        input(type="text" name="user_name" id="name")
+        br
+        p e-mail address
+        input(type="text" name="user_email" id="email")
+        br
+        p password
+        input(type="password" name="user_password" id="password")
+        br
+        div(id="friendsform")
+          h4 My friends
+          p Who are your friends? Add them to your list, separated by commas.
+          input(type="text" name="user_friends")
+        input(type="submit" val="CREATE MY ACCOUNT")
 
       script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
       script(src="../js/signup.js")

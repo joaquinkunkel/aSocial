@@ -11,7 +11,7 @@ function ajaxCall(newPost){
     },
     success: function(data){
       console.log("success in sending new post call", newPost);
-      newPostHTML = "<div class='post'><p class='date'>" + months[newPost.date.month] + " " + newPost.date.day + ", " + newPost.date.year + "</p><p class='text'>" + newPost.text + "</p></div>";
+      newPostHTML = "<div class='card'><p class='date'>" + months[newPost.date.month] + " " + newPost.date.day + ", " + newPost.date.year + "</p><p class='text'>" + newPost.text + "</p></div>";
       $(".posts").prepend(newPostHTML);
       $("#post_text").val("");
     }

@@ -6,26 +6,32 @@ html(lang="en")
     title aSocial
     style
       include feed.css
+      include main.css
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header
       form(id="gohome" action="/" method="post")
         input(name="id" class="userid" style="display:none" value=_id)
         input(type="submit" class="logo" value="aSocial")
-    div(class="feed")
+    div(class="content")
       div(id="posts_heading")
         h2= 'Welcome, '
           span(class="name")= name + '.'
         p Here's your feed.
-        p(class="button" id="newpost")= 'New post'
-        form(id="writepost" action = "" method="post")
+        a(class="button" id="newpost")= 'New post'
+        form(id="writepost" action = "" method="post" class="card")
+          h5 Write something...
           input(id="user_id" class="userid" style="display:none" value=_id)
-          input(type="text", name="post_text", id="post_text")
-          button(type="button" id="postbutton")
+          input(type="text", name="post_text", id="post_text" autocomplete="off")
+          button(type="button" id="postbutton") Post
       div(class="posts")
         each post in posts
-          div(class="post")
+          div(class="card")
             p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
             p(class="text")= post.text
+            div(class="post-buttons")
+              a(id="comment") Comment
+              a(id="share") Share
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script(src="../js/feed.js")
