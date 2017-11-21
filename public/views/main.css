@@ -4,7 +4,7 @@
 
 body{
   background-color: rgba(0, 0, 0, 0.02) !important;
-  font-family: "Helvetica" !important;
+  font-family: "Helvetica", sans-serif !important;
 }
 
 header{
@@ -39,6 +39,10 @@ header #gofriends{
 .heading h2{
   margin-bottom: 0;
   font-size: 1.2rem !important;
+}
+
+.heading p{
+  font-size: 1rem;
 }
 
 .logo{
@@ -80,7 +84,7 @@ a:hover, button:hover, input:hover, input:focus{
 }
 
 .content{
-  margin: 5rem auto 0 auto;
+  margin: 5.5rem auto 0 auto;
   width: 95%;
   max-width: 500px;
   justify-content: center;

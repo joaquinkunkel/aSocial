@@ -16,7 +16,7 @@ function ajaxCall(newPost){
       postId = data._id;
       newPostHTML = "<div class='card' id=" + 0 + "><div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input type='text' class='id' value='" + personId + "'/><input type='text' class='id' value='" + postId + "'/><input type='text' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><div class='comments'></div>";
       for(var i = postsLength; i >= 0; i--){
-        console.log(i);
+        //console.log(i);
         $("#" + i).attr('id', i+1);
       }
       $(".posts").prepend(newPostHTML);

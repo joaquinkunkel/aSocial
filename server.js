@@ -48,6 +48,28 @@ app.post('/friends', function(req, res){
   });
 });
 
+//When someone adds a new friend.
+app.post('/newfriend', function(req, res){
+  Person.findById(req.body.id, function(err, person){
+    person.friends.unshift(req.body.friend);
+    person.save(function(err, doc){
+      res.send(doc.friends[0]);
+    });
+  });
+});
+
+app.post('/removefriend', function(req, res){
+  var friendIndex = req.body.friend_index;
+  console.log('called! remove friend', req.body.id, "   ", friendIndex);
+  Person.findById(req.body.id, function(err, person){
+      person.friends.splice(friendIndex, 1);
+      console.log("updated friend array", person.friends);
+      person.save(function(err, doc){
+        res.send(friendIndex);
+      });
+  });
+});
+
 //When a user wants to sign up
 app.get('/signup', function(req, res){
   res.render('signup');
