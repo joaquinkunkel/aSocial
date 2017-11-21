@@ -1,12 +1,3 @@
-#posts_heading{
-  text-align: center;
-}
-
-#posts_heading h2{
-  margin-bottom: 0;
-  font-size: 1.2rem !important;
-}
-
 input[type=text]{
   max-width: 500px !important;
   width: 80%;

@@ -14,8 +14,11 @@ html(lang="en")
       form(id="gohome" action="/" method="post")
         input(name="id" class="userid" style="display:none" value=_id)
         input(type="submit" class="logo" value="aSocial")
+      form(id="gofriends" action="/friends" method="post")
+        input(name="id" class="userid" style="display:none" value=_id)
+        input(type="submit" class="friendsbutton" value="Friends")
     div(class="content")
-      div(id="posts_heading")
+      div(class="heading")
         h2= 'Welcome, '
           span(class="name")= name.split(' ')[0] + '.'
         p Here's your feed.

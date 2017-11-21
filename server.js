@@ -41,6 +41,13 @@ app.post('/', function(req, res){
   });
 });
 
+//When someone wants to see their friend list.
+app.post('/friends', function(req, res){
+  Person.findById(req.body.id, function(err, doc){
+    res.render('friends', doc);
+  });
+});
+
 //When a user wants to sign up
 app.get('/signup', function(req, res){
   res.render('signup');
