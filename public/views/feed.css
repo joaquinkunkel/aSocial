@@ -11,3 +11,33 @@ input[type=text]{
   max-width: 500px !important;
   width: 80%;
 }
+
+.post-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -5px auto;
+}
+
+.comment .text{
+  font-size: 1rem!important;
+}
+
+.comment .date{
+  font-size: 0.8rem!important;
+}
+
+.comments{
+  width: 100%;
+}
+
+.comment{
+  display: block;
+}
+
+.commentform{
+  width: 100%;
+  margin: 0 auto;
+  display: none;
+  flex-direction: row;
+}

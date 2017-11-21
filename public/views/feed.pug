@@ -17,7 +17,7 @@ html(lang="en")
     div(class="content")
       div(id="posts_heading")
         h2= 'Welcome, '
-          span(class="name")= name + '.'
+          span(class="name")= name.split(' ')[0] + '.'
         p Here's your feed.
         a(class="button" id="newpost")= 'New post'
         form(id="writepost" action = "" method="post" class="card")
@@ -26,12 +26,26 @@ html(lang="en")
           input(type="text", name="post_text", id="post_text" autocomplete="off")
           button(type="button" id="postbutton") Post
       div(class="posts")
-        each post in posts
-          div(class="card")
-            p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
-            p(class="text")= post.text
+        script var postsLength = 0;
+        each post, index in posts
+          script postsLength++;
+          div(class="card" id=index)
+            div(class="top")
+              p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
+              p(class="text")= post.text
             div(class="post-buttons")
-              a(id="comment") Comment
-              a(id="share") Share
+              a(class="commentme") Comment
+              a(class="share") Share
+            form(class="commentform")
+              input(type="text" class="id" value=_id)
+              input(type="text" class="id" value=post._id)
+              input(type="text" class="comment-text")
+              button(type="button" class="comment-button") Post
+            div(class="comments")
+              each comment in post.comments
+                div(class="comment")
+                  p(class="date")= months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year
+                  p(class="text")= comment.text
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script var personId = "#{_id}";
     script(src="../js/feed.js")

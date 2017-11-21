@@ -36,7 +36,6 @@ app.get('/', function(req, res){
 
 //When someone wants to go back home: By default, re-render the feed.
 app.post('/', function(req, res){
-  console.log('yas');
   Person.findById(req.body.id, function(err, doc){
     res.render('feed', doc);
   });
@@ -111,17 +110,70 @@ app.post('/login', function(req, res){
 app.post('/writepost', function(req, res){
   var body = req.body;
   var newPost = new Post(body.post);
+  newPost.save(function(err, post){
+    if(err){
+      return console.error(err);
+    }else{
+      console.log('Successfully saved new post: ' + post.text);
+    }
+  });
   var newPosts;
   var profileId = body.user_id;
-  console.log("HERE IS BODY" + JSON.stringify(body));
-  console.log("wrote new post: " + JSON.stringify(newPost));
-  console.log("finding", profileId);
+  //console.log("HERE IS BODY" + JSON.stringify(body));
+  //console.log("wrote new post: " + JSON.stringify(newPost));
+  //console.log("finding", profileId);
   Person.findById(profileId, function(err, doc){
     newPosts = doc.posts;
     newPosts.unshift(newPost);
     doc.posts = newPosts;
     doc.save(function(err, newDoc){
+      console.log('\nThe id is: ' + newDoc.posts[0]._id);
       res.send(newDoc.posts[0]);
+    });
+  });
+});
+
+app.post('/comment', function(req, res){
+  var body = req.body;
+
+  //Create the new comment and save it to database.
+  var newComment = new Comment({
+    text: body.text,
+    date: body.comment_date
+  });
+  newComment.save(function(err, post){
+    if(err){
+      return console.error(err);
+    }else{
+      console.log('Successfully saved new comment: ' + newComment.text);
+    }
+  });
+  var newComments;
+
+  //Find what post and profile we'll add it to.
+  var postId = body.post_id;
+  var profileId = body.profile_id;
+  var postIndex = body.post_index;
+
+  console.log('postid ', postId);
+
+  Post.findById(postId, function(err, doc){
+    console.log('found: ', JSON.stringify(doc));
+    newComments = doc.comments;
+    newComments.push(newComment);
+    doc.comments = newComments;
+
+    //Save the new modified post document.
+    doc.save(function(err, newDoc){
+      if(!err){
+        Person.findById(profileId, function(err, profile){
+          profile.posts.set(postIndex, newDoc);
+          profile.save(function(err, newProfile){
+            //console.log('these are the new posts: ' + JSON.stringify(newProfile.posts));
+            res.send(newProfile.posts[postIndex].comments[0]);
+          });
+        });
+      } else console.log(err);
     });
   });
 });
@@ -140,13 +192,12 @@ var my_database = mongoose.connection;
 //in case there's an 'error' event, we log it to the console
 my_database.on('error', console.error.bind(console, 'connection error:'));
 
-//if you always get an error, make sure you mongodb is running, and not just installed!
-
 //in case of an 'open' event, we say that we've successfully opened our connection.
 //we can also do other things like check for existing data, etc.
 
 var Person;
 var Post;
+var Comment;
 
 my_database.on('open', function(){
   console.log("Connections to the database successful!");
@@ -167,13 +218,20 @@ my_database.on('open', function(){
     comments: Array,
     reactions: Array,
     image: String
-  })
+  });
+
+  //Schema for a comment.
+  var commentSchema = mongoose.Schema({
+    text: String,
+    date: Object
+  });
 
   Person = mongoose.model('Person', personSchema);
   Post = mongoose.model('Post', postSchema);
+  Comment = mongoose.model('Comment', commentSchema);
 
   //For testing purposes. Logs all profiles.
-  Person.find(function(err, all_profiles){
+  Post.find(function(err, all_profiles){
     console.log(all_profiles);
   });
 

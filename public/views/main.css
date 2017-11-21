@@ -94,6 +94,12 @@ input[type=text], input[type=password], input[type=text]:hover, input[type=passw
   box-shadow: none;
 }
 
+.card{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row !important;
+}
+
 .card .date{
   font-size: 1rem;
   opacity: 0.4;
@@ -106,19 +112,23 @@ input[type=text], input[type=password], input[type=text]:hover, input[type=passw
   font-size: 1.2rem;
 }
 
-.post-buttons{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: -5px auto;
+.card .top{
+  min-width: 200px;
 }
 
-
-#comment, #share{
+a.commentme, a.share{
   color: rgba(0, 0, 0, 0.5) !important;
 }
 
-#comment:hover, #share:hover{
+a.commentme:hover, a.share:hover{
   background: transparent;
   color: #4E77FF !important;
 }
+
+
+.id{
+  display: none;
+}
+
+
+textarea, input, button { outline: none; }
