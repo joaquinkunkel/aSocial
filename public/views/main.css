@@ -48,6 +48,7 @@ header #gofriends{
 .logo{
   color: black !important;
   border: none !important;
+  border-radius: 1px !important;
   background: none !important;
   font-size: 1.5rem !important;
   padding: 0 !important;
@@ -73,7 +74,13 @@ a, button, .button, input{
 a, button, .button, input[type=submit]{
   background: transparent;
   border: none;
-  border-radius: 1rem !important;
+  border-radius: 50rem;
+}
+
+input[type=date]{
+  transition: 0s all !important;
+  width: 180px;
+  height: 2.2rem;
 }
 
 a:hover, button:hover, input:hover, input:focus{
@@ -109,18 +116,15 @@ form{
   border-radius: 5px;
   padding: 0.8rem;
   transition: 0.1s all;
-}
-
-input[type=text], input[type=password], input[type=text]:hover, input[type=password]:hover{
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-radius: 2px;
-  box-shadow: none;
-}
-
-.card{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row !important;
+}
+
+input[type=text], input[type="date"], input[type=password], input[type=text]:hover, input[type=password]:hover{
+  border: 1px solid #4E77FF !important;
+  border-radius: 2px;
+  box-shadow: none;
 }
 
 .card .date{

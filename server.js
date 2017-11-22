@@ -89,7 +89,8 @@ app.post('/newprofile', function(req, res){
         },
         comments: [],
         reactions: [],
-        image:''
+        image:'',
+        share_dates: []
       });
 
     var profile = new Person({
@@ -98,7 +99,6 @@ app.post('/newprofile', function(req, res){
       password: pPassword,
       friends: pFriends,
       posts: [firstPost]
-      //posts: ['hello pedro']
     });
 
     profile.save(function(err, profile){
@@ -199,7 +199,7 @@ app.post('/comment', function(req, res){
           profile.posts.set(postIndex, newDoc);
           profile.save(function(err, newProfile){
             //console.log('these are the new posts: ' + JSON.stringify(newProfile.posts));
-            res.send(newProfile.posts[postIndex].comments[0]);
+            res.send(newComment);
           });
         });
       } else console.log(err);
@@ -246,7 +246,8 @@ my_database.on('open', function(){
     date: Object,
     comments: Array,
     reactions: Array,
-    image: String
+    image: String,
+    share_dates: Array
   });
 
   //Schema for a comment.

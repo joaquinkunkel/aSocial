@@ -32,3 +32,13 @@ input[type=text]{
   display: none;
   flex-direction: row;
 }
+
+.shareform{
+  display: none;
+  flex-wrap: wrap;
+}
+
+
+.shareform .date{
+  min-width: 200px;
+}

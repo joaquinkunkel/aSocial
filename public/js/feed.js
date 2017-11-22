@@ -1,9 +1,12 @@
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var postIndex;
 var postId;
+var date = new Date;
 
-function ajaxCall(newPost){
-  console.log("we callin");
+//================ WRITING A POST ===================//
+
+function newPostAjax(newPost){
+  //console.log("we callin");
   $.ajax({
     url: '/writepost',
     type: 'POST',
@@ -14,13 +17,15 @@ function ajaxCall(newPost){
     success: function(data){
       console.log("success in sending new post call", data);
       postId = data._id;
-      newPostHTML = "<div class='card' id=" + 0 + "><div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input type='text' class='id' value='" + personId + "'/><input type='text' class='id' value='" + postId + "'/><input type='text' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><div class='comments'></div>";
+      newPostHTML = "<div class='card' id=" + 0 + "><div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input type='text' class='id' value='" + personId + "'/><input type='text' class='id' value='" + postId + "'/><input type='text' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><input type='text' class='id' value='" + personId + "'/><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
       for(var i = postsLength; i >= 0; i--){
         //console.log(i);
         $("#" + i).attr('id', i+1);
       }
+      postsLength++;
       $(".posts").prepend(newPostHTML);
       enableComments();
+      enableShare();
       $("#post_text").val("");
     }
   });
@@ -32,7 +37,6 @@ $("#newpost").click(function(){
 });
 
 $("#postbutton").click(function(){
-  var date = new Date;
   var newPost = {
     text: $("#post_text").val(),
     date: {
@@ -42,11 +46,64 @@ $("#postbutton").click(function(){
     },
     comments: [],
     reactions: [],
-    image: ''
+    image: '',
+    share_dates: []
   };
   console.log(newPost);
-  ajaxCall(newPost);
+  newPostAjax(newPost);
+  enableComments();
+  enableShare();
 });
+
+//================ SHARING A POST ===================//
+
+function enableShare(){
+  function shareToFuture(shareDate){
+    $.ajax({
+      url: '/sharepost',
+      type: 'POST',
+      data: {
+        date: shareDate
+      },
+      success: function(data){
+        console.log("success. post will be shared on date: ", data);
+      }
+    });
+  };
+
+  $(".share").click(function(){
+    var shareForm = $(this).parent().parent().find(".shareform")
+    if(shareForm.css('display') != 'flex')
+      shareForm.css('display', 'flex');
+    else
+      shareForm.css('display', 'none');
+  });
+
+  $(".sharebutton").click(function(){
+    $(this).parent().css('display', 'none');
+    var formDate = $(this).parent().find(".dateinput").val().replace('-', '').replace('-', '');
+    var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
+    //console.log(currentDate);
+    //console.log(formDate);
+    if(formDate == currentDate){
+      var newPost = {
+        text: $(this).parent().parent().find(".top .text").html(),
+        date: {
+          day: date.getDate(),
+          month: date.getMonth(),
+          year: date.getFullYear()
+        },
+        comments: [],
+        reactions: [],
+        image: '',
+        share_dates: []
+      };
+      newPostAjax(newPost);
+    }
+  });
+}
+
+//================ COMMENTING A POST ===================//
 
 function enableComments(){
   $(".commentme").click(function(){
@@ -57,7 +114,6 @@ function enableComments(){
     }
   });
   $(".comment-button").click(function(){
-    var date = new Date;
     postIndex = $(this).parent().parent().attr('id');
     var comment_text = $(this).prev().val();
     var id = $(this).prev().prev().val();
@@ -90,4 +146,16 @@ function enableComments(){
   });
 }
 
-enableComments();
+//=============================================================//
+
+Date.prototype.toDateInputValue = (function(){
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+
+$(document).ready(function(){
+  enableComments();
+  enableShare();
+  $('.dateinput').val(new Date().toDateInputValue());
+});

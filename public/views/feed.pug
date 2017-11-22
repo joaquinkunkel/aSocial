@@ -45,11 +45,16 @@ html(lang="en")
               input(type="text" class="id" value=post._id)
               input(type="text" class="comment-text")
               button(type="button" class="comment-button") Post
+            form(class="shareform")
+              p(class="date")= 'Share with ' + name.split(' ')[0] + ' from '
+              input(type="text" class="id" value=_id)
+              input(type="date" name="date" class="dateinput")
+              button(type="button" class="sharebutton") Share
             div(class="comments")
               each comment in post.comments
                 div(class="comment")
                   p(class="date")= months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year
                   p(class="text")= comment.text
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
-    script var personId = "#{_id}";
+    script var personId = "#{_id}"; var personName = "#{name}";
     script(src="../js/feed.js")
