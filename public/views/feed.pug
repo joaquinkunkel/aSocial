@@ -34,6 +34,8 @@ html(lang="en")
         each post, index in posts
           script postsLength++;
           div(class="card" id=index)
+            p(class="post_id")= post._id
+            p(class="post_index")= index
             div(class="top")
               p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
               p(class="text")= post.text

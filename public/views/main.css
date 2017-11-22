@@ -2,6 +2,10 @@
   display: none;
 }
 
+html{
+  font-size: 16px;
+}
+
 body{
   background-color: rgba(0, 0, 0, 0.02) !important;
   font-family: "Helvetica", sans-serif !important;
@@ -74,7 +78,7 @@ a, button, .button, input{
 a, button, .button, input[type=submit]{
   background: transparent;
   border: none;
-  border-radius: 50rem;
+  border-radius: 5rem;
 }
 
 input[type=date]{
@@ -153,7 +157,7 @@ a.commentme:hover, a.share:hover{
 }
 
 
-.id{
+.id, .post_id, .post_index{
   display: none;
 }
 

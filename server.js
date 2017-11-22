@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var app = new express();
 var pug = require('pug');
-var port = 8009;
+var port = 8008;
 var bp = require('body-parser');
 
 //Will change if the user is logged in.
@@ -31,6 +31,10 @@ app.get('/', function(req, res){
   else
     res.render('login');
     */
+  res.render('login');
+});
+
+app.get('/login', function(req, res){
   res.render('login');
 });
 
@@ -203,6 +207,30 @@ app.post('/comment', function(req, res){
           });
         });
       } else console.log(err);
+    });
+  });
+});
+
+app.post('/sharepost', function(req, res){
+  console.log("SHARE POST REQUEST: ", JSON.stringify(req.body));
+  var body = req.body;
+  var userId = body.user_id;
+  var postId = body.post_id;
+  var postIndex = body.post_index;
+  var shareDate = body.date;
+
+  Post.findById(postId, function(err, post){
+    console.log('finding post');
+    post.share_dates.push(shareDate); //The date will be of the form yyyymmdd.
+    post.save(function(err, doc){
+      Person.findById(userId, function(err, person){
+          person.posts.set(postIndex, doc);
+          person.save(function(err, doc2){
+            if(err)
+              console.log(err);
+            else res.send(shareDate);
+          });
+      });
     });
   });
 });

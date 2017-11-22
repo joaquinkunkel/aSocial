@@ -17,7 +17,7 @@ function newPostAjax(newPost){
     success: function(data){
       console.log("success in sending new post call", data);
       postId = data._id;
-      newPostHTML = "<div class='card' id=" + 0 + "><div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input type='text' class='id' value='" + personId + "'/><input type='text' class='id' value='" + postId + "'/><input type='text' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><input type='text' class='id' value='" + personId + "'/><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
+      newPostHTML = "<div class='card' id=" + 0 + "><p class='post_id'>" + postId + "<div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input type='text' class='id' value='" + personId + "'/><input type='text' class='id' value='" + postId + "'/><input type='text' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><input type='text' class='id' value='" + personId + "'/><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
       for(var i = postsLength; i >= 0; i--){
         //console.log(i);
         $("#" + i).attr('id', i+1);
@@ -58,11 +58,14 @@ $("#postbutton").click(function(){
 //================ SHARING A POST ===================//
 
 function enableShare(){
-  function shareToFuture(shareDate){
+  function shareToFuture(shareDate, postId, postIndex){
     $.ajax({
       url: '/sharepost',
       type: 'POST',
       data: {
+        user_id: personId,
+        post_id: postId,
+        post_index: postIndex,
         date: shareDate
       },
       success: function(data){
@@ -85,6 +88,8 @@ function enableShare(){
     var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
     //console.log(currentDate);
     //console.log(formDate);
+
+    /* Sharing to same day */
     if(formDate == currentDate){
       var newPost = {
         text: $(this).parent().parent().find(".top .text").html(),
@@ -100,6 +105,20 @@ function enableShare(){
       };
       newPostAjax(newPost);
     }
+
+    /* Sharing to the past */
+    else if(formDate < currentDate){
+      displayShared();
+    }
+
+    /* Sharing to the future */
+    else{
+      var thePostId = $(this).parent().parent().find(".post_id").html();
+      var thePostIndex = $(this).parent().parent().find(".post_index").html();
+      console.log("post id:" + thePostId);
+      shareToFuture(formDate, thePostId, thePostIndex);
+    }
+
   });
 }
 
