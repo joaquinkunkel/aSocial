@@ -27,12 +27,14 @@ html(lang="en")
         form(id="writepost" action = "" method="post" class="card")
           h5 Write something...
           input(id="user_id" class="userid" style="display:none" value=_id)
-          input(type="text", name="post_text", id="post_text" autocomplete="off")
+          textarea(rows="1", name="post_text", id="post_text" autocomplete="off")
           button(type="button" id="postbutton") Post
       div(class="posts")
         script var postsLength = 0;
+        script var notifications = [];
         each post, index in posts
           script postsLength++;
+          script notifications.push('#{post.share_dates}');
           div(class="card" id=index)
             p(class="post_id")= post._id
             p(class="post_index")= index
@@ -45,7 +47,7 @@ html(lang="en")
             form(class="commentform")
               input(type="text" class="id" value=_id)
               input(type="text" class="id" value=post._id)
-              input(type="text" class="comment-text")
+              textarea(rows="1" class="comment-text")
               button(type="button" class="comment-button") Post
             form(class="shareform")
               p(class="date")= 'Share with ' + name.split(' ')[0] + ' from '

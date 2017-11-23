@@ -2,6 +2,7 @@ var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 var postIndex;
 var postId;
 var date = new Date;
+var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
 
 //================ WRITING A POST ===================//
 
@@ -17,7 +18,7 @@ function newPostAjax(newPost){
     success: function(data){
       console.log("success in sending new post call", data);
       postId = data._id;
-      newPostHTML = "<div class='card' id=" + 0 + "><p class='post_id'>" + postId + "<div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input type='text' class='id' value='" + personId + "'/><input type='text' class='id' value='" + postId + "'/><input type='text' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><input type='text' class='id' value='" + personId + "'/><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
+      newPostHTML = "<div class='card' id=" + 0 + "><p class='post_id'>" + postId + "<div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input class='id' value='" + personId + "'/><input class='id' value='" + postId + "'/><textarea rows='1' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><textarea class='id' value='" + personId + "'/><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
       for(var i = postsLength; i >= 0; i--){
         //console.log(i);
         $("#" + i).attr('id', i+1);
@@ -122,6 +123,36 @@ function enableShare(){
   });
 }
 
+//================ CHECKING FOR NOTIFICATIONS ===================//
+
+/* Right now we have an array called notifications,
+which stores each post's notification dates array
+(formatted as a string). The index of a notification
+dates array corresponds to the index of a post, both
+in the server and in the rendered Posts div. */
+
+function checkNotifications(){
+  var ntoday = [];
+  //console.log("posts:", notifications);
+  for(var i = 0; i < notifications.length; i++){
+    var noti = notifications[i].split(',');
+
+    for(var j = 0; j < noti.length; j++){
+      var x = noti[j];
+      if(x == currentDate)
+        console.log("notif date: " + x + "\nindex: " + i);
+        ntoday.push(i);
+    }
+  }
+
+  $(".posts").prepend("<div class='notifications'></notifications>");
+
+  for(var i = 0; i < ntoday.length; i++){
+    var postHTML = $("#" + i).html();
+    $(".notifications").append("<h5 class='notification'>Someone shared a post with you!</h5><div class='card' id='" + ntoday[i] + "'>" + postHTML + "</div>");
+  }
+}
+
 //================ COMMENTING A POST ===================//
 
 function enableComments(){
@@ -176,5 +207,6 @@ Date.prototype.toDateInputValue = (function(){
 $(document).ready(function(){
   enableComments();
   enableShare();
+  checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
 });
