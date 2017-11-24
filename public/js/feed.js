@@ -32,28 +32,39 @@ function newPostAjax(newPost){
   });
 };
 
+var active = 0;
 $("#newpost").click(function(){
-  $(this).css("display", "none");
-  $("#writepost").css("display", "flex");
+  if(!active){
+    active = 1;
+    $(this).addClass("active-button");
+    $("#writepost").css("display", "flex");
+  }else{
+    active = 0;
+    $(this).removeClass("active-button");
+    $(this).addClass("button");
+    $("#writepost").css("display", "none");
+  }
 });
 
 $("#postbutton").click(function(){
-  var newPost = {
-    text: $("#post_text").val(),
-    date: {
-      day: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear()
-    },
-    comments: [],
-    reactions: [],
-    image: '',
-    share_dates: []
-  };
-  console.log(newPost);
-  newPostAjax(newPost);
-  enableComments();
-  enableShare();
+  if($("#post_text").val() != ''){
+    var newPost = {
+      text: $("#post_text").val(),
+      date: {
+        day: date.getDate(),
+        month: date.getMonth(),
+        year: date.getFullYear()
+      },
+      comments: [],
+      reactions: [],
+      image: '',
+      share_dates: []
+    };
+    console.log(newPost);
+    newPostAjax(newPost);
+    enableComments();
+    enableShare();
+  }
 });
 
 //================ SHARING A POST ===================//
@@ -77,10 +88,16 @@ function enableShare(){
 
   $(".share").click(function(){
     var shareForm = $(this).parent().parent().find(".shareform")
-    if(shareForm.css('display') != 'flex')
+    if(shareForm.css('display') != 'flex'){
+      $(this).parent().parent().find(".commentform").css("display", "none");
+      $(this).parent().find(".commentme").removeClass("active-button");
+      $(this).addClass("active-button");
       shareForm.css('display', 'flex');
-    else
+    }
+    else{
+      $(this).removeClass("active-button");
       shareForm.css('display', 'none');
+    }
   });
 
   $(".sharebutton").click(function(){
@@ -140,26 +157,52 @@ function checkNotifications(){
     for(var j = 0; j < noti.length; j++){
       var x = noti[j];
       if(x == currentDate)
-        console.log("notif date: " + x + "\nindex: " + i);
         ntoday.push(i);
     }
   }
 
-  $(".posts").prepend("<div class='notifications'></notifications>");
-
-  for(var i = 0; i < ntoday.length; i++){
-    var postHTML = $("#" + i).html();
-    $(".notifications").append("<h5 class='notification'>Someone shared a post with you!</h5><div class='card' id='" + ntoday[i] + "'>" + postHTML + "</div>");
+  if(ntoday.length > 0){
+    $(".feedbody").prepend("<hr/><div class='nheader'><h4>Notifications</h4><a id='ntoggle'>hide</a></div><div class='notifications'></div>");
+    for(var i = 0; i < ntoday.length; i++){
+      console.log(ntoday[i]);
+      var postHTML = $("#" + ntoday[i]).html();
+      $(".notifications").append("<h5 class='notification-title'>Someone shared a post with you!</h5><div class='card' id='" + ntoday[i] + "'>" + postHTML + "</div>");
+    }
+    $("<hr/>").insertAfter($(".notifications"));
   }
+
+  var nvisible = 1;
+  $("#ntoggle").click(function(){
+    if(nvisible){
+      nvisible = 0;
+      $(".notifications").css("display", "none");
+      $(this).html("show");
+    }else{
+      nvisible = 1;
+      $(".notifications").css("display", "block");
+      $(this).html("hide");
+    }
+  });
+  enableComments();
+  enableShare();
 }
 
 //================ COMMENTING A POST ===================//
 
 function enableComments(){
   $(".commentme").click(function(){
+    $(this).parent().find(".shareform").css("display", "none");
+    $(this).addClass("active-button");
+    $(this).addClass("button");
+    console.log('commentme clicked!');
     if($(this).parent().parent().find('.commentform').css('display') == 'none'){
+      $(this).parent().parent().find(".shareform").css("display", "none");
+      $(this).parent().find(".share").removeClass("active-button");
+      $(this).addClass("active-button");
       $(this).parent().parent().find('.commentform').css('display', 'flex');
     } else {
+      $(this).removeClass("active-button");
+      $(this).addClass("button");
       $(this).parent().parent().find('.commentform').css('display', 'none');
     }
   });
@@ -187,6 +230,10 @@ function enableComments(){
         success: function(comment){
           console.log('new comment!', JSON.stringify(comment));
           $("#" + postIndex + " .comments").append("<div class='comment'><p class='date'>" + months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year + "</p><p class='text'>" + comment.text + "</p>")
+          $("#" + postIndex).find(".cheading").css("display", "block");
+          $("#" + postIndex).find(".commentme").removeClass("active-button");
+          $("#" + postIndex).find(".commentform").css("display", "none");
+          $("#" + postIndex).find("#comment-text").val("");
         },
         error: function(err){
           console.log(err);
@@ -205,8 +252,10 @@ Date.prototype.toDateInputValue = (function(){
 });
 
 $(document).ready(function(){
-  enableComments();
-  enableShare();
   checkNotifications();
+  $('.post').each(function(){
+    if($(this).find(".comments").html() == "")
+      $(this).find(".cheading").css("display", "none");
+  });
   $('.dateinput').val(new Date().toDateInputValue());
 });

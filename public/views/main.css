@@ -2,13 +2,9 @@
   display: none;
 }
 
-html{
-  font-size: 16px;
-}
-
 body{
   background-color: rgba(0, 0, 0, 0.02) !important;
-  font-family: "Helvetica", sans-serif !important;
+  font-family: "Helvetica Neue", sans-serif !important;
 }
 
 header{
@@ -49,7 +45,7 @@ header #gofriends{
   font-size: 1rem;
 }
 
-.logo{
+header .logo{
   color: black !important;
   border: none !important;
   border-radius: 1px !important;
@@ -60,22 +56,38 @@ header #gofriends{
   transition: 0.1s all;
 }
 
-.logo:hover{
+header .logo:hover{
   color: #4E77FF !important;
+  background: white !important;
   text-decoration: none !important;
   background: none;
 }
 
-a, button, .button, input, textarea{
+.nheader{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.nheader a{
+  margin-left: 1rem !important;
+}
+
+h4{
+  margin-top: 1rem !important;
+  text-align: center;
+}
+
+#bootstrap-overrides a, #bootstrap-overrides button, #bootstrap-overrides .button, #bootstrap-overrides input, #bootstrap-overrides textarea{
   padding: 0.4rem 0.8rem;
   transition: 0.1s all;
-  color: #4E77FF !important;
-  margin: 5px !important;
+  color: #4E77FF;
+  margin: 5px;
   outline-color: transparent;
   outline-style: none;
 }
 
-a, button, .button, input[type=submit]{
+a, button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
   background: transparent;
   border: none;
   border-radius: 5rem;
@@ -87,9 +99,9 @@ input[type=date]{
   height: 2.2rem;
 }
 
-a:hover, button:hover, input:hover, input:focus, textarea:focus{
+a:hover, button:hover, input:hover, input:focus, textarea:focus, .active-button{
   cursor: default;
-  background: #4E77FF;
+  background: #4E77FF !important;
   color: white !important;
   text-decoration: none !important;
 }
@@ -121,7 +133,7 @@ form{
   border: none !important;
   background: white;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  margin: 0.6rem;
+  margin: 0.6rem 0.1rem;
   border-radius: 5px;
   padding: 0.8rem;
   transition: 0.1s all;
@@ -143,6 +155,13 @@ input[type=text], textarea, input[type="date"], input[type=password], textarea:h
   margin: 0;
 }
 
+.ctitle{
+  font-size: 1rem;
+  opacity: 0.6;
+  padding: 0;
+  margin: 0 0 0.4rem 0;
+}
+
 .card .text{
   margin: 0.2rem;
   font-size: 1.2rem;
@@ -152,19 +171,13 @@ input[type=text], textarea, input[type="date"], input[type=password], textarea:h
   min-width: 200px;
 }
 
-a.commentme, a.share{
-  color: rgba(0, 0, 0, 0.5) !important;
-}
-
-a.commentme:hover, a.share:hover{
-  background: transparent;
-  color: #4E77FF !important;
+.card .commentme, .share{
+  color: rgba(0, 0, 0, 0.5);
 }
 
 
 .id, .post_id, .post_index{
   display: none;
 }
-
 
 textarea, input, button { outline: none; }

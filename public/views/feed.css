@@ -19,6 +19,7 @@ input[type=text]{
 }
 
 .comments{
+  text-align: left;
   width: 100%;
 }
 
@@ -38,7 +39,24 @@ input[type=text]{
   flex-wrap: wrap;
 }
 
+.top .text, .top .date{
+  text-align: left;
+}
 
 .shareform .date{
   min-width: 200px;
+}
+
+.notification-title{
+  margin-top: 1rem !important;
+  color: #fc0f42;
+  font-size: 1rem;
+}
+
+#ntoggle{
+  font-size: 1rem !important;
+}
+
+.cheading{
+  width: 100%;
 }

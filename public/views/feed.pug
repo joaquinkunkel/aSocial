@@ -10,7 +10,7 @@ html(lang="en")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-  body
+  body(id="bootstrap-overrides")
     header
       form(id="gohome" action="/" method="post")
         input(name="id" class="userid" style="display:none" value=_id)
@@ -22,43 +22,49 @@ html(lang="en")
       div(class="heading")
         h2= 'Welcome, '
           span(class="name")= name.split(' ')[0] + '.'
-        p Here's your feed.
-        a(class="button" id="newpost")= 'New post'
+        p This is where all your posts live.
+      div(class="feedbody")
+        script var postsLength = 0;
+        script var notifications = [];
+        div(class="nheader")
+          h4 Feed
+          a(class="button" id="newpost")= 'New post'
         form(id="writepost" action = "" method="post" class="card")
           h5 Write something...
           input(id="user_id" class="userid" style="display:none" value=_id)
           textarea(rows="1", name="post_text", id="post_text" autocomplete="off")
           button(type="button" id="postbutton") Post
-      div(class="posts")
-        script var postsLength = 0;
-        script var notifications = [];
-        each post, index in posts
-          script postsLength++;
-          script notifications.push('#{post.share_dates}');
-          div(class="card" id=index)
-            p(class="post_id")= post._id
-            p(class="post_index")= index
-            div(class="top")
-              p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
-              p(class="text")= post.text
-            div(class="post-buttons")
-              a(class="commentme") Comment
-              a(class="share") Share
-            form(class="commentform")
-              input(type="text" class="id" value=_id)
-              input(type="text" class="id" value=post._id)
-              textarea(rows="1" class="comment-text")
-              button(type="button" class="comment-button") Post
-            form(class="shareform")
-              p(class="date")= 'Share with ' + name.split(' ')[0] + ' from '
-              input(type="text" class="id" value=_id)
-              input(type="date" name="date" class="dateinput")
-              button(type="button" class="sharebutton") Share
-            div(class="comments")
-              each comment in post.comments
-                div(class="comment")
-                  p(class="date")= months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year
-                  p(class="text")= comment.text
+        div(class="posts")
+          each post, index in posts
+            script postsLength++;
+            script notifications.push('#{post.share_dates}');
+            div(class="card" class="post" id=index)
+              p(class="post_id")= post._id
+              p(class="post_index")= index
+              div(class="top")
+                p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
+                p(class="text")= post.text
+              div(class="post-buttons")
+                a(class="commentme") Comment
+                a(class="share") Share
+              form(class="commentform")
+                input(type="text" class="id" value=_id)
+                input(type="text" class="id" value=post._id)
+                textarea(rows="1" class="comment-text")
+                button(type="button" class="comment-button") Post
+              form(class="shareform")
+                p(class="date")= 'Share with ' + name.split(' ')[0] + ' from '
+                input(type="text" class="id" value=_id)
+                input(type="date" name="date" class="dateinput")
+                button(type="button" class="sharebutton") Share
+              div(class="cheading")
+                hr(style="margin-bottom: 0.4rem")
+                p(class="ctitle") Comments
+              div(class="comments")
+                each comment in post.comments
+                  div(class="comment")
+                    p(class="date")= months[comment.date.month] + " " + comment.date.day + ", " + comment.date.year
+                    p(class="text")= comment.text
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script var personId = "#{_id}"; var personName = "#{name}";
     script(src="../js/feed.js")
