@@ -171,6 +171,10 @@ input[type=text], textarea, input[type="date"], input[type=password], textarea:h
   display: none;
 }
 
+.hidden{
+  display: none;
+}
+
 textarea, input, button { outline: none; }
 
 input[type=text], input[type=password]{

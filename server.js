@@ -102,7 +102,8 @@ app.post('/newprofile', function(req, res){
       email: pEmail,
       password: pPassword,
       friends: pFriends,
-      posts: [firstPost]
+      posts: [firstPost],
+      reactions: [0,0,0,0,0,0,0,0,0,0]
     });
 
     profile.save(function(err, profile){
@@ -220,12 +221,17 @@ app.post('/reaction', function(req, res){
   var personId = body.user_id;
   console.log("REACTION REQUEST. BODY: ", body);
   Post.findById(postId, function(err, post){
+    var oldReaction = post.reaction;
+    console.log('old reaction: ' + oldReaction);
     post.reaction = reaction;
     post.save(function(err, doc){
       Person.findById(personId, function(err, person){
+        person.reactions.set(reaction, person.reactions[reaction] + 1);
+        if(oldReaction >= 0) person.reactions.set(oldReaction, person.reactions[oldReaction] - 1);
         person.posts.set(postIndex, post);
         person.save(function(err, newProfile){
           res.send(reaction);
+          console.log("new reactions: " + person.reactions);
         })
       });
     });
@@ -286,7 +292,8 @@ my_database.on('open', function(){
     email: String,
     password: String,
     friends: Array,
-    posts: Array
+    posts: Array,
+    reactions: Array,
   });
 
   //Schema for a post.
@@ -296,13 +303,13 @@ my_database.on('open', function(){
     comments: Array,
     reaction: Number,
     image: String,
-    share_dates: Array
+    share_dates: Array,
   });
 
   //Schema for a comment.
   var commentSchema = mongoose.Schema({
     text: String,
-    date: Object
+    date: Object,
   });
 
   Person = mongoose.model('Person', personSchema);

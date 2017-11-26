@@ -66,9 +66,13 @@ input[type=text]{
   margin: 0.5rem !important;
 }
 
-.card .reactme{
+.reactme{
+  text-align: center;
+  background: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   user-select: none;
-  background: #4E77FF;
   height: 3.2rem;
   width: 3.2rem;
   border-radius: 50%;
@@ -85,21 +89,73 @@ input[type=text]{
   padding: 0.5rem;
   position: absolute;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
   z-index: 1;
 }
 
-.roption p{
+.roption{
+  display: flex;
+  align-items: center;
   opacity: 0.6;
   cursor: pointer;
+  transition: 0.15s all;
 }
 
-.roption p:hover{
+.roption:hover{
   opacity: 1;
 }
 
 .rdropdown p{
   margin: 0.2rem;
+}
+
+#r0:hover{
+  color:#ff1975;
+}
+
+#r1:hover{
+  color:#ffaa00;
+}
+
+#r2:hover{
+  color:#0083ff;
+}
+
+#r3:hover{
+  color:#a100ff;
+}
+
+#r4:hover{
+  color:#ffbb00;
+}
+
+#r5:hover{
+  color:#ff6100;
+}
+
+#r6:hover{
+  color:#00d882;
+}
+
+#r7:hover{
+  color:#d83200;
+}
+
+#r8:hover{
+  color:#2b00d8;
+}
+
+#r9:hover{
+  color:#00d85d;
+}
+
+.big{
+  font-size: 2rem;
+}
+
+.white{
+  color: white;
 }
 
 .show{

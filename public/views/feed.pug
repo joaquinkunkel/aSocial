@@ -1,5 +1,8 @@
 -
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
+  var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
+
 doctype html
 html(lang="en")
   head
@@ -9,6 +12,7 @@ html(lang="en")
       include main.css
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body(id="bootstrap-overrides")
     header
@@ -42,31 +46,43 @@ html(lang="en")
               p(class="post_id")= post._id
               table(class="top")
                 td
-                  div(class="reactme")
+                  div(class="reactme" style="background:" + rColors[post.reaction])
+                    if(post.reaction != null)
+                      i(class="material-icons big white")= rIcons[post.reaction]
                   div(class="rdropdown")
                     p This makes me feel...
                     table(class="roptions")
                       td(class="column")
                         div(class="roption" id="r0")
+                          i(class="material-icons") favorite
                           p kind
                         div(class="roption" id="r1")
+                          i(class="material-icons") people_outline
                           p extraverted
                         div(class="roption" id="r2")
+                          i(class="material-icons") public
                           p open
                         div(class="roption" id="r3")
+                          i(class="material-icons") school
                           p diligent
-                        div(class="roption" id="r4")            
+                        div(class="roption" id="r4")     
+                          i(class="material-icons") whatshot
                           p neurotic
                       td(class="column")
                         div(class="roption" id="r5")
+                          i(class="material-icons") new_releases
                           p evil
                         div(class="roption" id="r6") 
+                          i(class="material-icons") book
                           p introverted                      
                         div(class="roption" id="r7")
-                          p narrow
+                          i(class="material-icons") lock_outline
+                          p intolerant
                         div(class="roption" id="r8")
+                          i(class="material-icons") alarm_off
                           p lazy
                         div(class="roption" id="r9")
+                          i(class="material-icons") nature
                           p stable
                 td(class="top")
                   p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
