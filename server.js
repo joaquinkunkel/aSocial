@@ -92,7 +92,7 @@ app.post('/newprofile', function(req, res){
           year: date.getFullYear()
         },
         comments: [],
-        reactions: [],
+        reaction: 0,
         image:'',
         share_dates: []
       });
@@ -117,7 +117,8 @@ app.post('/newprofile', function(req, res){
 
   var body = req.body;
   //console.log(body);
-  friendsArray = body.user_friends.split(",");
+  var friendString = body.user_friends.replace(/, /g , ",");
+  friendsArray = friendString.split(",");
   createProfile(body.user_name, body.user_email, body.user_password, friendsArray);
 });
 
@@ -211,6 +212,26 @@ app.post('/comment', function(req, res){
   });
 });
 
+app.post('/reaction', function(req, res){
+  var body = req.body;
+  var postId = body.post_id;
+  var postIndex = body.post_index;
+  var reaction = body.reaction;
+  var personId = body.user_id;
+  console.log("REACTION REQUEST. BODY: ", body);
+  Post.findById(postId, function(err, post){
+    post.reaction = reaction;
+    post.save(function(err, doc){
+      Person.findById(personId, function(err, person){
+        person.posts.set(postIndex, post);
+        person.save(function(err, newProfile){
+          res.send(reaction);
+        })
+      });
+    });
+  });
+});
+
 app.post('/sharepost', function(req, res){
   console.log("SHARE POST REQUEST: ", JSON.stringify(req.body));
   var body = req.body;
@@ -273,7 +294,7 @@ my_database.on('open', function(){
     text: String,
     date: Object,
     comments: Array,
-    reactions: Array,
+    reaction: Number,
     image: String,
     share_dates: Array
   });
@@ -287,10 +308,12 @@ my_database.on('open', function(){
   Person = mongoose.model('Person', personSchema);
   Post = mongoose.model('Post', postSchema);
   Comment = mongoose.model('Comment', commentSchema);
+  //Friend = mongoose.model('Friend', friendSchema);
 
-  //For testing purposes. Logs all profiles.
+  /* //For testing purposes. Logs all profiles.
   Post.find(function(err, all_profiles){
     console.log(all_profiles);
   });
+  */
 
 });

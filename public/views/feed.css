@@ -7,7 +7,7 @@ input[type=text]{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: -5px auto;
+  margin: -0.6rem auto;
 }
 
 .comment .text{
@@ -59,4 +59,53 @@ input[type=text]{
 
 .cheading{
   width: 100%;
+}
+
+.card .commentme, .card .share{
+  //color: rgba(0, 0, 0, 0.5) !important;
+  margin: 0.5rem !important;
+}
+
+.card .reactme{
+  user-select: none;
+  background: #4E77FF;
+  height: 3.2rem;
+  width: 3.2rem;
+  border-radius: 50%;
+  margin: 0.3rem 0.7rem 0.3rem 0rem;
+  cursor: pointer;
+}
+
+.card .reactme:hover, .card .reactme:focus{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rdropdown{
+  display: none;
+  padding: 0.5rem;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.roption p{
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.roption p:hover{
+  opacity: 1;
+}
+
+.rdropdown p{
+  margin: 0.2rem;
+}
+
+.show{
+  display: block;
+}
+
+.id, .post_id, .post_index{
+  display: none;
 }

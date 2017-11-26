@@ -40,26 +40,51 @@ html(lang="en")
             script notifications.push('#{post.share_dates}');
             div(class="card" class="post" id=index)
               p(class="post_id")= post._id
-              p(class="post_index")= index
-              div(class="top")
-                p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
-                p(class="text")= post.text
+              table(class="top")
+                td
+                  div(class="reactme")
+                  div(class="rdropdown")
+                    p This makes me feel...
+                    table(class="roptions")
+                      td(class="column")
+                        div(class="roption" id="r0")
+                          p kind
+                        div(class="roption" id="r1")
+                          p extraverted
+                        div(class="roption" id="r2")
+                          p open
+                        div(class="roption" id="r3")
+                          p diligent
+                        div(class="roption" id="r4")            
+                          p neurotic
+                      td(class="column")
+                        div(class="roption" id="r5")
+                          p evil
+                        div(class="roption" id="r6") 
+                          p introverted                      
+                        div(class="roption" id="r7")
+                          p narrow
+                        div(class="roption" id="r8")
+                          p lazy
+                        div(class="roption" id="r9")
+                          p stable
+                td(class="top")
+                  p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
+                  p(class="text")= post.text
               div(class="post-buttons")
                 a(class="commentme") Comment
                 a(class="share") Share
+              div(class="cheading")
+                hr
               form(class="commentform")
-                input(type="text" class="id" value=_id)
-                input(type="text" class="id" value=post._id)
+                //input(type="text" class="id" value=_id)
+                //input(type="text" class="id" value=post._id)
                 textarea(rows="1" class="comment-text")
                 button(type="button" class="comment-button") Post
               form(class="shareform")
                 p(class="date")= 'Share with ' + name.split(' ')[0] + ' from '
-                input(type="text" class="id" value=_id)
                 input(type="date" name="date" class="dateinput")
-                button(type="button" class="sharebutton") Share
-              div(class="cheading")
-                hr(style="margin-bottom: 0.4rem")
-                p(class="ctitle") Comments
+                button(type="button" class="sharebutton") Share  
               div(class="comments")
                 each comment in post.comments
                   div(class="comment")

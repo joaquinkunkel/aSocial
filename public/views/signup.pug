@@ -15,20 +15,19 @@ html(lang="en")
       a(href="/") Back to login
       form(id="signupform" action = "/newprofile" method="post")
         p name
-        input(type="text" name="user_name" id="name")
+        input(type="text" name="user_name" id="name" autocomplete="off")
         br
         p e-mail address
-        input(type="text" name="user_email" id="email")
+        input(type="text" name="user_email" id="email" autocomplete="off")
         br
         p password
-        input(type="password" name="user_password" id="password")
+        input(type="password" name="user_password" id="password" autocomplete="off")
         br
         div(id="friendsform")
           h4 My friends
           p Who are your friends? Add them to your list, separated by commas.
-          input(type="text" name="user_friends")
+          input(type="text" name="user_friends" autocomplete="off")
         input(type="submit" val="CREATE MY ACCOUNT")
 
       script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
-      script(src="../js/signup.js")
       script(src="../js/profile.js")

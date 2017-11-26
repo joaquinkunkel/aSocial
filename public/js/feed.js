@@ -18,7 +18,7 @@ function newPostAjax(newPost){
     success: function(data){
       console.log("success in sending new post call", data);
       postId = data._id;
-      newPostHTML = "<div class='card' id=" + 0 + "><p class='post_id'>" + postId + "<div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><form class='commentform'><input class='id' value='" + personId + "'/><input class='id' value='" + postId + "'/><textarea rows='1' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><textarea class='id' value='" + personId + "'/><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
+      newPostHTML = "<div class='card' id=" + 0 + "><p class='post_id'>" + postId + "</p><div class='top'><p class='date'>" + months[data.date.month] + " " + data.date.day + ", " + data.date.year + "</p><p class='text'>" + data.text + "</p></div><div class='post-buttons'><a class='commentme'>Comment</a><a class='share'>Share</a></div><div class='cheading' style='display:none'><hr/></div><form class='commentform'>" + "<textarea rows='1' class='comment-text'/><button type='button' class='comment-button'>Post</button></form><form class='shareform'><p class='date'>"+ "Share with " + personName.split(' ')[0] + " from " + "</p><input type='date' name='date' class='dateinput'/><button type='button' class='sharebutton'>Share</button></form>"+ "<div class='comments'></div>";
       for(var i = postsLength; i >= 0; i--){
         //console.log(i);
         $("#" + i).attr('id', i+1);
@@ -27,6 +27,7 @@ function newPostAjax(newPost){
       $(".posts").prepend(newPostHTML);
       enableComments();
       enableShare();
+      enableReactions();
       $("#post_text").val("");
     }
   });
@@ -56,7 +57,7 @@ $("#postbutton").click(function(){
         year: date.getFullYear()
       },
       comments: [],
-      reactions: [],
+      reaction: 0,
       image: '',
       share_dates: []
     };
@@ -64,6 +65,7 @@ $("#postbutton").click(function(){
     newPostAjax(newPost);
     enableComments();
     enableShare();
+    enableReactions();
   }
 });
 
@@ -86,7 +88,7 @@ function enableShare(){
     });
   };
 
-  $(".share").click(function(){
+  $(".share").unbind().click(function(){
     var shareForm = $(this).parent().parent().find(".shareform")
     if(shareForm.css('display') != 'flex'){
       $(this).parent().parent().find(".commentform").css("display", "none");
@@ -100,7 +102,8 @@ function enableShare(){
     }
   });
 
-  $(".sharebutton").click(function(){
+  $(".sharebutton").unbind().click(function(){
+    $(this).parent().parent().find('.share').removeClass("active-button");
     $(this).parent().css('display', 'none');
     var formDate = $(this).parent().find(".dateinput").val().replace('-', '').replace('-', '');
     var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
@@ -117,7 +120,7 @@ function enableShare(){
           year: date.getFullYear()
         },
         comments: [],
-        reactions: [],
+        reaction: 0,
         image: '',
         share_dates: []
       };
@@ -132,8 +135,9 @@ function enableShare(){
     /* Sharing to the future */
     else{
       var thePostId = $(this).parent().parent().find(".post_id").html();
-      var thePostIndex = $(this).parent().parent().find(".post_index").html();
+      var thePostIndex = $(this).parent().parent().attr("id");
       console.log("post id:" + thePostId);
+      console.log("post index:" + thePostIndex);
       shareToFuture(formDate, thePostId, thePostIndex);
     }
 
@@ -166,7 +170,7 @@ function checkNotifications(){
     for(var i = 0; i < ntoday.length; i++){
       console.log(ntoday[i]);
       var postHTML = $("#" + ntoday[i]).html();
-      $(".notifications").append("<h5 class='notification-title'>Someone shared a post with you!</h5><div class='card' id='" + ntoday[i] + "'>" + postHTML + "</div>");
+      $(".notifications").append("<h5 class='notification-title'>Someone shared a post with you!</h5><div class='card post' id='" + ntoday[i] + "'>" + postHTML + "</div>");
     }
     $("<hr/>").insertAfter($(".notifications"));
   }
@@ -183,14 +187,17 @@ function checkNotifications(){
       $(this).html("hide");
     }
   });
+
+  checkComments();
   enableComments();
   enableShare();
+  enableReactions();
 }
 
 //================ COMMENTING A POST ===================//
 
 function enableComments(){
-  $(".commentme").click(function(){
+  $(".commentme").unbind().click(function(){
     $(this).parent().find(".shareform").css("display", "none");
     $(this).addClass("active-button");
     $(this).addClass("button");
@@ -206,12 +213,12 @@ function enableComments(){
       $(this).parent().parent().find('.commentform').css('display', 'none');
     }
   });
-  $(".comment-button").click(function(){
+  $(".comment-button").unbind().click(function(){
     postIndex = $(this).parent().parent().attr('id');
     var comment_text = $(this).prev().val();
-    var id = $(this).prev().prev().val();
-    var profid = $(this).prev().prev().prev().val();
+    var id = $(this).parent().parent().find('.post_id').html();
     console.log('post id ' + id);
+    console.log('person id ' + personId);
     if(comment_text != ''){
       $.ajax({
         url: '/comment',
@@ -220,7 +227,7 @@ function enableComments(){
           text: comment_text,
           post_id: id,
           post_index: postIndex,
-          profile_id: profid,
+          profile_id: personId,
           comment_date: {
             day: date.getDate(),
             month: date.getMonth(),
@@ -243,6 +250,41 @@ function enableComments(){
   });
 }
 
+//================ REACTING TO A POST ===================//
+
+function enableReactions(){
+
+  /* Display or hide the dropdown menu */
+  $(".reactme").unbind().click(function(){
+    if($(this).parent().find(".rdropdown").css("display") != "block")
+      $(this).parent().find(".rdropdown").addClass("show");
+    else $(this).parent().find(".rdropdown").removeClass("show");
+  });
+
+  $(".roption").click(function(){
+    postId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().find(".post_id").html();
+    postIndex = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().attr("id");
+    reactionIndex = $(this).attr("id");
+    console.log(postId, postIndex);
+    $.ajax({
+      url: '/reaction',
+      type: 'POST',
+      data: {
+        user_id: personId,
+        post_id: postId,
+        post_index: postIndex,
+        reaction: reactionIndex,
+      },
+      success: function(data){
+        console.log("success. we have reacted to the post: ", data);
+        $(".rdropdown").removeClass("show");
+      }
+    });
+  });
+
+}
+
+
 //=============================================================//
 
 Date.prototype.toDateInputValue = (function(){
@@ -251,11 +293,14 @@ Date.prototype.toDateInputValue = (function(){
     return local.toJSON().slice(0,10);
 });
 
-$(document).ready(function(){
-  checkNotifications();
+function checkComments(){
   $('.post').each(function(){
     if($(this).find(".comments").html() == "")
       $(this).find(".cheading").css("display", "none");
   });
+}
+
+$(document).ready(function(){
+  checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
 });

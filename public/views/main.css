@@ -69,10 +69,6 @@ header .logo:hover{
   text-align: center;
 }
 
-.nheader a{
-  margin-left: 1rem !important;
-}
-
 h4{
   margin-top: 1rem !important;
   text-align: center;
@@ -163,7 +159,7 @@ input[type=text], textarea, input[type="date"], input[type=password], textarea:h
 }
 
 .card .text{
-  margin: 0.2rem;
+  margin: 0;
   font-size: 1.2rem;
 }
 
@@ -171,13 +167,12 @@ input[type=text], textarea, input[type="date"], input[type=password], textarea:h
   min-width: 200px;
 }
 
-.card .commentme, .share{
-  color: rgba(0, 0, 0, 0.5);
-}
-
-
-.id, .post_id, .post_index{
+.id{
   display: none;
 }
 
 textarea, input, button { outline: none; }
+
+input[type=text], input[type=password]{
+  min-width: 250px;
+}
