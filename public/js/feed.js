@@ -5,6 +5,23 @@ var date = new Date;
 var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
 var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
 var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
+
+//================SHOWING A MESSAGE=================//
+
+function lowerMessage(message){
+  $('body').append(message);
+  $('.message').animate({
+    bottom: 0
+  }, 300);
+  setTimeout(function(){
+    $('.message').animate({
+      bottom: '-3rem'
+    }, 300, function(){
+      $('.message').remove();
+    });
+  }, 10000);
+}
+
 //================ WRITING A POST ===================//
 
 function newPostAjax(newPost){
@@ -30,7 +47,7 @@ function newPostAjax(newPost){
 
       $("#0").find(".post_id").html(postId);
       $("#0").find(".reactme").html("");
-      $("#0").find(".reactme").css("background", "gray");
+      $("#0").find(".reactme").css("background", "rgba(0, 0, 0, 0.1)");
       $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
       $("#0").find(".top .text").html(data.text);
       $("#0").find(".comments").html("");
@@ -107,50 +124,78 @@ function enableShare(){
       $(this).parent().find(".commentme").removeClass("active-button");
       $(this).addClass("active-button");
       shareForm.css('display', 'flex');
+      $(this).parent().parent().find(".cheading").css("display", "block");
     }
     else{
       $(this).removeClass("active-button");
       shareForm.css('display', 'none');
+      if($(this).parent().parent().find('.comments').html() == '')
+        $(this).parent().parent().find(".cheading").css("display", "none");
+    }
+  });
+
+  $(".recipient").change(function(){
+    console.log('recipient changed');
+    if($(this).val() == 'self'){
+      console.log('is self');
+      $(this).parent().parent().find('.part2').removeClass('hidden');
+    } else {
+      console.log('isnt self');
+      $(this).parent().parent().find('.part2').addClass('hidden');
     }
   });
 
   $(".sharebutton").unbind().click(function(){
+
+    /* Function to display the "SHARED!" message. */
+    function displayShared(instance, dateString, friendName){
+      if(instance == 0){
+        var sharedMessage = "<div class='message'><i class='material-icons'>check_circle</i> Your post has been shared with your past self.</div>";
+      }
+      else if(instance == 1){
+        var sharedMessage = "<div class='message'><i class='material-icons'>check_circle</i> Your post has been shared with your future self, who will get notified on " + dateString + ".</div>";
+      }
+      else{
+        var sharedMessage = "<div class='message'><i class='material-icons'>check_circle</i> Your post has been shared with your friend " + friendName + ".</div>";
+      }
+
+      var formHTML = $(this).parent().html();
+      lowerMessage(sharedMessage);
+
+
+      $(this).parent().css('display', 'none');
+      if($(this).parent().parent().find('.comments').html() == '')
+        $(this).parent().parent().find(".cheading").css("display", "none");
+    }
+
     $(this).parent().parent().find('.share').removeClass("active-button");
-    $(this).parent().css('display', 'none');
     var formDate = $(this).parent().find(".dateinput").val().replace('-', '').replace('-', '');
     var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
     //console.log(currentDate);
     //console.log(formDate);
 
-    /* Sharing to same day */
-    if(formDate == currentDate){
-      var newPost = {
-        text: $(this).parent().parent().find(".top .text").html(),
-        date: {
-          day: date.getDate(),
-          month: date.getMonth(),
-          year: date.getFullYear()
-        },
-        comments: [],
-        reaction: 0,
-        image: '',
-        share_dates: []
-      };
-      newPostAjax(newPost);
-    }
+    var recipientValue = $(this).parent().find('.recipient').val();
 
-    /* Sharing to the past */
+    /* Sharing to a friend */
+    if(recipientValue != 'self'){
+      console.log("shared with friend");
+      displayShared(2,null,recipientValue);
+    }
+    /* Sharing to the past self */
     else if(formDate < currentDate){
-      displayShared();
+      displayShared(0, formDate);
     }
 
-    /* Sharing to the future */
+    /* Sharing to the present or future */
     else{
       var thePostId = $(this).parent().parent().find(".post_id").html();
       var thePostIndex = $(this).parent().parent().attr("id");
       console.log("post id:" + thePostId);
       console.log("post index:" + thePostIndex);
       shareToFuture(formDate, thePostId, thePostIndex);
+      if(formDate == currentDate)
+        checkNotifications(thePostIndex);
+      displayShared(1, formDate);
     }
 
   });
@@ -164,8 +209,23 @@ which stores each post's notification dates array
 dates array corresponds to the index of a post, both
 in the server and in the rendered Posts div. */
 
-function checkNotifications(){
+function displayNotifications(nArray){
+  $(".notifdiv").remove();
+  if(nArray.length > 0){
+    $(".feedbody").prepend("<div class='notifdiv'><hr/><div class='nheader'><h4>Notifications</h4><a id='ntoggle'>hide</a></div><div class='notifications'></div></div>");
+    for(var i = 0; i < nArray.length; i++){
+      console.log(nArray[i]);
+      var postHTML = $("#" + nArray[i]).html();
+      $(".notifications").append("<h5 class='notification-title'>Someone shared a post with you!</h5><div class='card post' id='" + nArray[i] + "'>" + postHTML + "</div>");
+    }
+    $("<hr/>").insertAfter($(".notifications"));
+  }
+}
+
+function checkNotifications(newNoti){
   var ntoday = [];
+  if(newNoti != undefined)
+    ntoday.push(newNoti);
   //console.log("posts:", notifications);
   for(var i = 0; i < notifications.length; i++){
     var noti = notifications[i].split(',');
@@ -177,15 +237,7 @@ function checkNotifications(){
     }
   }
 
-  if(ntoday.length > 0){
-    $(".feedbody").prepend("<hr/><div class='nheader'><h4>Notifications</h4><a id='ntoggle'>hide</a></div><div class='notifications'></div>");
-    for(var i = 0; i < ntoday.length; i++){
-      console.log(ntoday[i]);
-      var postHTML = $("#" + ntoday[i]).html();
-      $(".notifications").append("<h5 class='notification-title'>Someone shared a post with you!</h5><div class='card post' id='" + ntoday[i] + "'>" + postHTML + "</div>");
-    }
-    $("<hr/>").insertAfter($(".notifications"));
-  }
+  displayNotifications(ntoday);
 
   var nvisible = 1;
   $("#ntoggle").click(function(){
@@ -219,10 +271,13 @@ function enableComments(){
       $(this).parent().find(".share").removeClass("active-button");
       $(this).addClass("active-button");
       $(this).parent().parent().find('.commentform').css('display', 'flex');
+      $(this).parent().parent().find(".cheading").css("display", "block");
     } else {
       $(this).removeClass("active-button");
       $(this).addClass("button");
       $(this).parent().parent().find('.commentform').css('display', 'none');
+      if($(this).parent().parent().find('.comments').html() == '')
+        $(this).parent().parent().find(".cheading").css("display", "none");
     }
   });
   $(".comment-button").unbind().click(function(){

@@ -2,9 +2,8 @@
   display: none;
 }
 
-body{
-  background-color: rgba(0, 0, 0, 0.02) !important;
-  font-family: "Helvetica Neue", sans-serif !important;
+body, #bootstrap-overrides{
+  background-color: rgba(0,0,0,0.02);
 }
 
 header{
@@ -74,13 +73,23 @@ h4{
   text-align: center;
 }
 
-#bootstrap-overrides a, #bootstrap-overrides button, #bootstrap-overrides .button, #bootstrap-overrides input, #bootstrap-overrides textarea{
+#bootstrap-overrides a, #bootstrap-overrides button, #bootstrap-overrides .button, #bootstrap-overrides input, #bootstrap-overrides textarea, #bootstrap-overrides select{
   padding: 0.4rem 0.8rem;
   transition: 0.1s all;
+  background: none;
   color: #4E77FF;
   margin: 5px;
   outline-color: transparent;
   outline-style: none;
+}
+
+#bootstrap-overrides .light{
+  color: white !important;
+}
+
+#bootstrap-overrides .light:hover{
+  background: white !important;
+  color: #4E77FF !important;
 }
 
 a, button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
@@ -89,13 +98,12 @@ a, button, .card .comment-button, .card #postbutton, .card .sharebutton, .button
   border-radius: 5rem;
 }
 
-input[type=date]{
+input[type=date], select{
   transition: 0s all !important;
-  width: 180px;
   height: 2.2rem;
 }
 
-a:hover, button:hover, input:hover, input:focus, textarea:focus, .active-button{
+a:hover, button:hover, input:hover, input:focus, textarea:focus, .active-button, select:hover{
   cursor: default;
   background: #4E77FF !important;
   color: white !important;
@@ -138,13 +146,13 @@ form{
   flex-direction: row !important;
 }
 
-input[type=text], textarea, input[type="date"], input[type=password], textarea:hover, input[type=text]:hover, input[type=password]:hover{
+input[type=text], select, textarea, input[type="date"], input[type=password], textarea:hover, input[type=text]:hover, input[type=password]:hover, select:hover{
   border: 1px solid #4E77FF !important;
   border-radius: 2px;
   box-shadow: none;
 }
 
-.card .date{
+.card .date, .faded{
   font-size: 1rem;
   opacity: 0.4;
   padding: 0;
@@ -172,11 +180,37 @@ input[type=text], textarea, input[type="date"], input[type=password], textarea:h
 }
 
 .hidden{
-  display: none;
+  display: none !important;
 }
 
-textarea, input, button { outline: none; }
+.text-left{
+  width: 100%;
+  text-align: left;
+}
+
+textarea, input, button, select { outline: none; }
 
 input[type=text], input[type=password]{
   min-width: 250px;
+}
+
+.message{
+  position: fixed;
+  bottom: -3rem;
+  text-align: center;
+  display: flex;
+  background: #4E77FF;
+  color: white;
+  width: 100%;
+  height: 3rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 600px){
+  .message{
+    height: 4.5rem;
+  }
 }

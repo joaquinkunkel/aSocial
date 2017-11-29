@@ -35,8 +35,19 @@ input[type=text]{
 }
 
 .shareform{
+  width: 100%;
   display: none;
   flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: baseline;
+}
+
+.shareform span{
+  margin: auto 0.5rem;
+}
+
+.shareform, .commentform{
+  margin-bottom: 1rem;
 }
 
 .top .text, .top .date{
@@ -44,13 +55,20 @@ input[type=text]{
 }
 
 .shareform .date{
+  opacity: 1;
   min-width: 200px;
+}
+
+.self{
+  font-weight: bold;
 }
 
 .notification-title{
   margin-top: 1rem !important;
-  color: #fc0f42;
+  color: #4730c9;
   font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
 }
 
 #ntoggle{
@@ -68,7 +86,7 @@ input[type=text]{
 
 .reactme{
   text-align: center;
-  background: gray;
+  background: rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,4 +182,8 @@ input[type=text]{
 
 .id, .post_id, .post_index{
   display: none;
+}
+
+.part1, .part2{
+  display: block;
 }

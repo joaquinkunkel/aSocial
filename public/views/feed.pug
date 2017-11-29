@@ -13,6 +13,7 @@ html(lang="en")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body(id="bootstrap-overrides")
     header
@@ -98,8 +99,15 @@ html(lang="en")
                 textarea(rows="1" class="comment-text")
                 button(type="button" class="comment-button") Post
               form(class="shareform")
-                p(class="date")= 'Share with ' + name.split(' ')[0] + ' from '
-                input(type="date" name="date" class="dateinput")
+                div(class="part1")
+                  p(class="faded text-left")= 'Share with'
+                  select(class="recipient")
+                    option(class="self" value="self")= name.split(' ')[0]
+                    each friend in friends
+                      option(value=friend)= friend
+                div(class="part2")
+                  p(class="from faded text-left")= 'from'
+                  input(type="date" name="date" class="dateinput")
                 button(type="button" class="sharebutton") Share  
               div(class="comments")
                 each comment in post.comments
