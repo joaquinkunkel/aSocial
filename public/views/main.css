@@ -23,7 +23,6 @@ header{
 }
 
 header #gohome{
-  border-right: 0.5px solid rgba(0, 0, 0, 0.3);
   padding-right: 1rem;
 }
 
@@ -92,6 +91,16 @@ h4{
   color: #4E77FF !important;
 }
 
+#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton{
+  border-radius: 50%;
+  height: 2.3rem;
+  width: 2.3rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
 a, button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
   background: transparent;
   border: none;
@@ -104,7 +113,7 @@ input[type=date], select{
 }
 
 a:hover, button:hover, input:hover, input:focus, textarea:focus, .active-button, select:hover{
-  cursor: default;
+  cursor: pointer;
   background: #4E77FF !important;
   color: white !important;
   text-decoration: none !important;
@@ -207,6 +216,16 @@ input[type=text], input[type=password]{
   align-items: center;
   box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
   padding: 1rem;
+}
+
+.red{
+  border-radius: 5rem !important;
+  color: #ff3d3d!important;
+}
+
+.red:hover{
+  background: #ff3d3d !important;
+  color: white !important;
 }
 
 @media only screen and (max-width: 600px){

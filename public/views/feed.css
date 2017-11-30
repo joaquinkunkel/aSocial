@@ -98,6 +98,10 @@ input[type=text]{
   cursor: pointer;
 }
 
+.blankreaction{
+  color: white;
+}
+
 .card .reactme:hover, .card .reactme:focus{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

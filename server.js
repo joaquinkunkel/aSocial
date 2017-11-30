@@ -84,25 +84,13 @@ app.post('/newprofile', function(req, res){
   //To create a new profile
   function createProfile(pName, pEmail, pPassword, pFriends){
     var date = new Date;
-    firstPost = new Post({
-        text:"Welcome to aSocial! Start by writing a post or uploading a photo.",
-        date: {
-          day: date.getDate(),
-          month: date.getMonth(),
-          year: date.getFullYear()
-        },
-        comments: [],
-        reaction: 0,
-        image:'',
-        share_dates: []
-      });
 
     var profile = new Person({
       name: pName,
       email: pEmail,
       password: pPassword,
       friends: pFriends,
-      posts: [firstPost],
+      posts: [],
       reactions: [0,0,0,0,0,0,0,0,0,0]
     });
 

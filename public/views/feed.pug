@@ -22,7 +22,16 @@ html(lang="en")
         input(type="submit" class="logo" value="aSocial")
       form(id="gofriends" action="/friends" method="post")
         input(name="id" class="userid" style="display:none" value=_id)
-        input(type="submit" class="friendsbutton" value="Friends")
+        button(type="submit" class="friendsbutton" id="friendsbutton")
+          i(class="material-icons") people_outline
+      form(id="myprofile" action="/profile" method="post")
+        input(name="id" class="userid" style="display:none" value=_id)
+        button(type="submit" id="profilebutton")
+          i(class="material-icons") person_outline
+      a(href="/login" class='red' id="logoutbutton")
+        i(class="material-icons") power_settings_new
+      a(target="_blank" href="/about" id="aboutbutton")
+        i(class="material-icons") info_outline
     div(class="content")
       div(class="heading")
         h2= 'Welcome, '
@@ -39,6 +48,9 @@ html(lang="en")
           input(id="user_id" class="userid" style="display:none" value=_id)
           textarea(rows="1", name="post_text", id="post_text" autocomplete="off")
           button(type="button" id="postbutton") Post
+        if posts.length == 0
+          div(class="welcome card")
+            p(class="text") Welcome to aSocial! You can start populating your profile by writing your first post.
         div(class="posts")
           each post, index in posts
             script postsLength++;
@@ -48,8 +60,10 @@ html(lang="en")
               table(class="top")
                 td
                   div(class="reactme" style="background:" + rColors[post.reaction])
-                    if(post.reaction != null)
+                    if(post.reaction != -1)
                       i(class="material-icons big white")= rIcons[post.reaction]
+                    else
+                      h5(class="blankreaction") ...
                   div(class="rdropdown")
                     p This makes me feel...
                     table(class="roptions")
