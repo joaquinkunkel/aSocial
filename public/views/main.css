@@ -32,6 +32,10 @@ header #gofriends{
 
 .heading{
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .heading h2{
@@ -91,14 +95,16 @@ h4{
   color: #4E77FF !important;
 }
 
-#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton{
+#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton, .sharebutton, .comment-button{
+  display: table-cell;
   border-radius: 50%;
   height: 2.3rem;
   width: 2.3rem;
   text-align: center;
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  vertical-align: middle;
+  padding-top: auto;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 a, button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
@@ -112,8 +118,8 @@ input[type=date], select{
   height: 2.2rem;
 }
 
-a:hover, button:hover, input:hover, input:focus, textarea:focus, .active-button, select:hover{
-  cursor: pointer;
+a:hover, button:hover, input[type=text]:hover, input[type=text]:focus, input[type=date]:hover, input[type=date]:focus, textarea:focus, .active-button, select:hover{
+  cursor: default;
   background: #4E77FF !important;
   color: white !important;
   text-decoration: none !important;
@@ -226,6 +232,11 @@ input[type=text], input[type=password]{
 .red:hover{
   background: #ff3d3d !important;
   color: white !important;
+}
+
+.nohover:hover{
+  color: #4730c9 !important;
+  background: none !important;
 }
 
 @media only screen and (max-width: 600px){

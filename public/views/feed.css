@@ -1,3 +1,15 @@
+.content{
+  margin-top: 6.5rem !important;
+}
+
+.heading{
+  justify-content: baseline !important;
+}
+
+.heading h2, .heading p{
+  text-align: left;
+}
+
 input[type=text]{
   max-width: 500px !important;
   width: 80%;
@@ -39,11 +51,15 @@ input[type=text]{
   display: none;
   flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: baseline;
+  justify-content: center;
 }
 
-.shareform span{
+.shareform span, .shareform p{
   margin: auto 0.5rem;
+}
+
+.comment-button{
+  width: 2.7rem !important;
 }
 
 .shareform, .commentform{
@@ -189,5 +205,76 @@ input[type=text]{
 }
 
 .part1, .part2{
-  display: block;
+  display: table-cell;
+}
+
+#profpic{
+  height: 90px;
+  width: 90px;
+  background: gray;
+  border-radius: 50%;
+}
+
+#profpicwrap{
+  width: 150px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ppsubmit{
+  height: auto !important;
+  padding: 0;
+  cursor: pointer;
+}
+
+#ppinput{
+  width: 130px !important;
+}
+
+#profpic{
+  background-size: cover !important;
+  background-color: white;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+#ppform{
+  width: 400px;
+  display: flex;
+  margin: 0 auto 1rem auto;
+  background: rgba(255,255,255,0.9);
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 520px){
+  .heading{
+    display: block !important;
+  }
+  .heading h2, .heading p{
+    text-align: center;
+  }
+  #profpicwrap{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 400px){
+
+  .shareform select, .shareform input{
+    width: 100%;
+  }
+
+  .shareform{
+    align-items: baseline;
+  }
+
+  .part1, .part2{
+    width: 100%;
+  }
+
+  .part1 p, .part2 p{
+    width: 100%;
+    text-align: left;
+  }
 }

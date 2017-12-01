@@ -23,6 +23,30 @@ function lowerMessage(message){
   }, 10000);
 }
 
+//================ CHANGING THE PROFILE PICTURE ===================//
+
+$("#profpic").click(function(){
+  $("#ppform").removeClass("hidden");
+});
+
+$("#ppsubmit").click(function(e){
+  e.preventDefault();
+  $("#ppform").ajaxSubmit({
+    data: {user_id: personId},
+    error: function(err) {
+      status('Error: ' + err.status);
+    },
+    success: function(data) {
+      console.log(data);
+      $("#profpic").css('background', 'url("./uploads/' + data + '")');
+      $("#ppform").addClass('hidden');
+      lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> Your profile picture has been changed.</div>");
+    }
+  });
+  return false;
+});
+
+
 //================ WRITING A POST ===================//
 
 function newPostAjax(newPost){
@@ -376,4 +400,5 @@ function checkComments(){
 $(document).ready(function(){
   checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
+  if(image) $("#profpic").css('background', 'url("./uploads/' + image + '")');
 });

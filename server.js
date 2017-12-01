@@ -5,18 +5,85 @@ var app = new express();
 var pug = require('pug');
 var port = 8008;
 var bp = require('body-parser');
+var fs = require('fs');
+//var sgMail = require('@sendgrid/mail');
+var multer = require('multer');
+var crypto = require('crypto');
+var morgan = require('morgan');
 
-//Will change if the user is logged in.
-var loggedIn = false;
+///// LOAD IN THE API KEY FOR EMAIL
+fs.readFile('API_KEY.txt','utf-8',function(err,data){
+  if (err) throw err;
+  API_KEY = data.toString();
+  //console.log('we have successfully read and stored our mailgun api key');
+});
+
+///IMAGE UPLOAD
+var storage = multer.diskStorage({
+  destination: function(req, file, callback){
+    callback(null, './public/uploads');
+  },
+  filename: function(req, file, callback){
+    var oName = file.originalname.split('.');
+    callback(null, oName[0] + '-' + Date.now() + '.' + oName[1]);
+  }
+});
+
+var upload = multer({storage: storage}).single('ppinput');
+
+app.post('/profpic', upload, function(req, res) {
+  if (req.file) {
+    console.dir(req.file);
+    Person.findById(req.body.user_id, function(err, person){
+      person.image = req.file.filename;
+      person.save(function(err, doc){
+        if(err) console.log("ERROR: " + err);
+        else{
+          console.log("TRYING TO SEND FILENAME: " + req.file.filename);
+          res.end(req.file.filename);
+        }
+      });
+    });
+  }
+  else
+    res.end('Missing file');
+});
+
+///EMAIL STUFF
+/*
+function sendMail(){
+  console.log('sending an email!');
+
+  var recipient = 'joaquinkunkel@gmail.com';
+  var sender = 'aSocial <jek537@nyu.edu>';
+  var email_body = 'Congratulations! You have successfully set up an aSocial account.'
+
+  sgMail.setApiKey(API_KEY);
+
+  var  msg = {
+    to: recipient, //recipient, which is the nyuad.facilities
+    from: 'aSocial <jek537@nyu.edu>',
+    subject: 'Welcome to aSocial',
+    html: email_body
+  };
+  sgMail.send(msg);
+}
+*/
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 app.use(express.static('public'));
 app.use(bp.urlencoded({
   extended: true
 }));
 app.use(bp.json());
+app.use(morgan('dev'));
+
 app.set('view engine', 'pug');
 app.set('views', 'public/views');
-
 app.listen(port, function(){
   console.log('Server started on port', port);
 });
@@ -282,6 +349,7 @@ my_database.on('open', function(){
     friends: Array,
     posts: Array,
     reactions: Array,
+    image: String,
   });
 
   //Schema for a post.
@@ -303,6 +371,7 @@ my_database.on('open', function(){
   Person = mongoose.model('Person', personSchema);
   Post = mongoose.model('Post', postSchema);
   Comment = mongoose.model('Comment', commentSchema);
+
   //Friend = mongoose.model('Friend', friendSchema);
 
   /* //For testing purposes. Logs all profiles.

@@ -8,6 +8,7 @@ html(lang="en")
     link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body(id="bootstrap-overrides-login")
     header(style="padding: 10px")
@@ -22,7 +23,8 @@ html(lang="en")
           input(type="password", name="user_password" placeholder="password")
           br
           input(type="submit" value="Log in" id='loginbutton')
-      div(class='about')
+      i(class="material-icons arrow") expand_more
+      div(class='about' id='about')
         h2 A network where users don't interact with each other.
         p The users of aSocial are not able to see any content on other perople's profiles.
         p What happens when one is presented with the tools to craft an online identity, but the audience of such identity consists only of oneself?
