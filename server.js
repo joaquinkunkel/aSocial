@@ -345,7 +345,7 @@ app.post('/forget', function(req, res){
 });
 
 //we connect to the database. "test" here refers to the specific database that we want to connect to
-mongoose.connect('mongodb://127.0.0.1/test', {
+mongoose.connect('mongodb://asocial-dev:<M7x0GCHz5koldv7m>@asocial-shard-00-00-syxhk.mongodb.net:27017,asocial-shard-00-01-syxhk.mongodb.net:27017,asocial-shard-00-02-syxhk.mongodb.net:27017/test?ssl=true&replicaSet=aSocial-shard-0&authSource=admin', {
   useMongoClient: true,
 });
 
