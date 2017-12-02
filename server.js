@@ -106,6 +106,10 @@ app.get('/login', function(req, res){
   res.render('login');
 });
 
+app.get('/about', function(req, res){
+  res.render('about');
+});
+
 //When someone wants to go back home: By default, re-render the feed.
 app.post('/', function(req, res){
   Person.findById(req.body.id, function(err, doc){

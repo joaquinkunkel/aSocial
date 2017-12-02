@@ -107,7 +107,7 @@ h4{
   padding-right: 0 !important;
 }
 
-a, button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
+a:not(.arrow), button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
   background: transparent;
   border: none;
   border-radius: 5rem;
@@ -123,6 +123,11 @@ a:not(.arrow):hover, button:hover, input[type=text]:hover, input[type=text]:focu
   background: #4E77FF !important;
   color: white !important;
   text-decoration: none !important;
+}
+
+a{
+  cursor: pointer !important;
+  padding: auto !important;
 }
 
 textarea{
