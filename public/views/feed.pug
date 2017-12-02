@@ -16,6 +16,9 @@ html(lang="en")
     link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body(id="bootstrap-overrides")
+    script var user_friends = [];
+    each friend in friends
+      script user_friends.push('#{friend}');
     header
       form(id="gohome" action="/" method="post")
         input(name="id" class="userid" style="display:none" value=_id)

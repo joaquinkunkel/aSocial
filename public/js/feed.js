@@ -88,31 +88,31 @@ function newPostAjax(newPost){
     },
     success: function(data){
       console.log("success in sending new post call", data);
-      location.href('/');
-      // postId = data._id;
-      // newPostHTML = "<div class='card post hidden' id=" + 0 + ">" + blankPostHTML + "</div>";
-      // for(var i = postsLength; i >= 0; i--){
-      //   //console.log(i);
-      //   $("#" + i).attr('id', i+1);
-      // }
-      // postsLength++;
-      // console.log(newPostHTML);
-      // $(".posts").prepend(newPostHTML);
-      //
-      // $("#0").find(".post_id").html(postId);
-      // $("#0").find(".reactme").html("<h5 class='blankreaction'>...</h5>");
-      // $("#0").find(".reactme").css("background", "rgba(0, 0, 0, 0.1)");
-      // $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
-      // $("#0").find(".top .text").html(data.text);
-      // $("#0").find(".comments").html("");
-      //
-      // $("#0").find(".recipient").html(shareOptions);
-      //
-      // $("#0").removeClass('hidden');
-      // enableComments();
-      // enableShare();
-      // enableReactions();
-      // $("#post_text").val("");
+      postId = data._id;
+      newPostHTML = "<div class='card post hidden' id=" + 0 + ">" + blankPostHTML + "</div>";
+      for(var i = postsLength; i >= 0; i--){
+        $("#" + i).attr('id', i+1);
+      }
+      postsLength++;
+      $(".posts").prepend(newPostHTML);
+
+      $("#0").find(".post_id").html(postId);
+      $("#0").find(".reactme").html("<h5 class='blankreaction'>...</h5>");
+      $("#0").find(".reactme").css("background", "rgba(0, 0, 0, 0.14)");
+      $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
+      $("#0").find(".top .text").html(data.text);
+      $("#0").find(".comments").html("");
+
+      $("#0").find(".recipient").append("<option class='self' value = 'self'>" + personName.split(' ')[0] + "</option>");
+      for(var i = 0; i < user_friends.length; i++){
+        $("#0").find(".recipient").append("<option value=" + user_friends[i] + ">" + user_friends[i] + "</option>");
+      }
+
+      $("#0").removeClass('hidden');
+      enableComments();
+      enableShare();
+      enableReactions();
+      $("#post_text").val("");
     }
   });
 };
@@ -430,7 +430,6 @@ function checkComments(){
 }
 
 $(document).ready(function(){
-  console.log($('#0').html());
   checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
   if(image) $("#profpic").css('background', 'url("./uploads/' + image + '")');
