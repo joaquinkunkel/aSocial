@@ -11,13 +11,6 @@ var multer = require('multer');
 var crypto = require('crypto');
 var morgan = require('morgan');
 
-///// LOAD IN THE API KEY FOR EMAIL
-fs.readFile('API_KEY.txt','utf-8',function(err,data){
-  if (err) throw err;
-  API_KEY = data.toString();
-  //console.log('we have successfully read and stored our mailgun api key');
-});
-
 ///IMAGE UPLOAD
 var storage = multer.diskStorage({
   destination: function(req, file, callback){
@@ -51,6 +44,14 @@ app.post('/profpic', upload, function(req, res) {
 
 ///EMAIL STUFF
 /*
+
+///// LOAD IN THE API KEY FOR EMAIL
+fs.readFile('API_KEY.txt','utf-8',function(err,data){
+  if (err) throw err;
+  API_KEY = data.toString();
+  //console.log('we have successfully read and stored our mailgun api key');
+});
+
 function sendMail(){
   console.log('sending an email!');
 
@@ -317,6 +318,28 @@ app.post('/sharepost', function(req, res){
   });
 });
 
+app.post('/forget', function(req, res){
+  var body = req.body;
+  Post.findById(body.post_id, function(err, post){
+    var memory = post.memory;
+    post.memory = memory/2;
+    post.save(function(err, doc){
+      if(err) console.log(err);
+      else{
+        Person.findById(body.user_id, function(err, person){
+          person.posts.set(body.post_index, doc);
+          person.save(function(err, newDoc){
+            if(err) console.log(err);
+            else res.send({
+              memory: doc.memory
+            });
+          });
+        });
+      }
+    });
+  });
+});
+
 //we connect to the database. "test" here refers to the specific database that we want to connect to
 mongoose.connect('mongodb://127.0.0.1/test', {
   useMongoClient: true,
@@ -360,6 +383,7 @@ my_database.on('open', function(){
     reaction: Number,
     image: String,
     share_dates: Array,
+    memory: Number,
   });
 
   //Schema for a comment.

@@ -5,7 +5,13 @@ var date = new Date;
 var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
 var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
 var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
-var blankPostHTML = '<p class="post_id">5a1a606920c15214c13ed96d</p><table class="top"><tbody><tr><td><div class="reactme" style="background:#ffaa00;"></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted                      </p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div></td><td class="top"><p class="date">November 25, 2017</p><p class="text">Hey, is this working?</p></td></tr></tbody></table><div class="post-buttons"><a class="commentme">Comment</a><a class="share">Share</a></div><div class="cheading" style="display: none"><hr></div><form class="commentform"><!--input(type="text" class="id" value=_id)--><!--input(type="text" class="id" value=post._id)--><textarea class="comment-text" rows="1"></textarea><button class="comment-button" type="button">Post</button></form><form class="shareform"><div class="part1"><p class="faded text-left">Share with</p><select class="recipient"><option class="self" value="self">Joaquin</option><option value="Lizard people">Lizard people</option></select></div><div class="part2"><p class="from faded text-left">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button">Share  </button></form><div class="comments"></div>';
+var blankPostHTML = '<p class="post_id"></p><table class="top"><tbody><tr><td><div class="reactme" style="background:#ff6100;"><i class="material-icons big white">new_releases</i></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted                      </p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div></td><td class="top"><p class="date">December 2, 2017</p><p class="text">I hate myself</p></td></tr></tbody></table><div class="post-buttons"><i class="button material-icons commentme">mode_comment</i><i class="button material-icons share">send</i><i class="button material-icons forget red" id="forget">delete</i></div><div class="cheading hidden"><hr></div><form class="commentform"><textarea class="comment-text" rows="1"></textarea><button class="comment-button" type="button"><i class="material-icons">check</i></button></form><form class="shareform"><div class="part1"><p class="faded">Share with</p><select class="recipient"></select></div><div class="part2"><p class="from faded">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button"><i class="material-icons">check</i></button></form><div class="comments"></div>';
+
+$('.post').hover(function(){
+  $(this).addClass('hover');
+}, function(){
+  $(this).removeClass('hover');
+});
 
 //================SHOWING A MESSAGE=================//
 
@@ -23,13 +29,35 @@ function lowerMessage(message){
   }, 10000);
 }
 
+//================ FORGETTING A POST =================//
+
+$(".forget").click(function(){
+  postId = $(this).closest('.post').find('.post_id').html();
+  var postIndex = $(this).closest('.post').attr('id');
+  console.log(postId, postIndex);
+  $.ajax({
+    url: '/forget',
+    type: 'POST',
+    data: {
+      post_id: postId,
+      post_index: postIndex,
+      user_id: personId,
+    },
+    success: function(data){
+      $('#' + postIndex + ' .text').css('opacity', data.memory);
+      $('#' + postIndex + ' .reactme').css('opacity', data.memory);
+      lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> You have attempted to forget your post.</div>")
+    }
+  });
+});
+
 //================ CHANGING THE PROFILE PICTURE ===================//
 
 $("#profpic").click(function(){
-  $("#ppform").removeClass("hidden");
+  $("#ppinput").trigger("click");
 });
 
-$("#ppsubmit").click(function(e){
+$("#ppinput").on('change', function(e){
   e.preventDefault();
   $("#ppform").ajaxSubmit({
     data: {user_id: personId},
@@ -60,28 +88,31 @@ function newPostAjax(newPost){
     },
     success: function(data){
       console.log("success in sending new post call", data);
-      postId = data._id;
-      newPostHTML = "<div class='card post hidden' id=" + 0 + ">" + blankPostHTML + "</div>";
-      for(var i = postsLength; i >= 0; i--){
-        //console.log(i);
-        $("#" + i).attr('id', i+1);
-      }
-      postsLength++;
-      console.log(newPostHTML);
-      $(".posts").prepend(newPostHTML);
-
-      $("#0").find(".post_id").html(postId);
-      $("#0").find(".reactme").html("<h5 class='blankreaction'>...</h5>");
-      $("#0").find(".reactme").css("background", "rgba(0, 0, 0, 0.1)");
-      $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
-      $("#0").find(".top .text").html(data.text);
-      $("#0").find(".comments").html("");
-
-      $("#0").removeClass('hidden');
-      enableComments();
-      enableShare();
-      enableReactions();
-      $("#post_text").val("");
+      location.reload();
+      // postId = data._id;
+      // newPostHTML = "<div class='card post hidden' id=" + 0 + ">" + blankPostHTML + "</div>";
+      // for(var i = postsLength; i >= 0; i--){
+      //   //console.log(i);
+      //   $("#" + i).attr('id', i+1);
+      // }
+      // postsLength++;
+      // console.log(newPostHTML);
+      // $(".posts").prepend(newPostHTML);
+      //
+      // $("#0").find(".post_id").html(postId);
+      // $("#0").find(".reactme").html("<h5 class='blankreaction'>...</h5>");
+      // $("#0").find(".reactme").css("background", "rgba(0, 0, 0, 0.1)");
+      // $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
+      // $("#0").find(".top .text").html(data.text);
+      // $("#0").find(".comments").html("");
+      //
+      // $("#0").find(".recipient").html(shareOptions);
+      //
+      // $("#0").removeClass('hidden');
+      // enableComments();
+      // enableShare();
+      // enableReactions();
+      // $("#post_text").val("");
     }
   });
 };
@@ -114,7 +145,8 @@ $("#postbutton").click(function(){
       reaction: 0,
       image: '',
       share_dates: [],
-      reaction: -1
+      reaction: -1,
+      memory: 1
     };
     console.log(newPost);
     newPostAjax(newPost);
@@ -398,6 +430,7 @@ function checkComments(){
 }
 
 $(document).ready(function(){
+  console.log($('#0').html());
   checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
   if(image) $("#profpic").css('background', 'url("./uploads/' + image + '")');

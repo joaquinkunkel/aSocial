@@ -1,22 +1,22 @@
-function ajaxCall(email, password){
-  //console.log("sending ajax call");
-  $.ajax({
-    url: '/loginattempt',
-    type: 'POST',
-    data: {
-      user_email: email,
-      user_password: password,
-    },
-    success: function(){
-      console.log("success sending login call");
-      window.location.href = '/feed';
-    },
-    error: function(){
-      console.log("error sending login call");
-    }
-  });
-};
+var arrow = $('.arrow');
+var range = 50;
 
-$("#submitform").click(function(){
-  ajaxCall($("#email").val(), $("#password").val());
+$(window).on('scroll', function () {
+  var scrollTop = $(this).scrollTop(),
+      height = arrow.outerHeight(),
+      offset = height / 2,
+      calc = 1 - (scrollTop - 3 * offset + range) / range;
+  arrow.css({ 'opacity': calc });
+  if (calc > '1') {
+    arrow.css({ 'opacity': 1 });
+  } else if ( calc < '0' ) {
+    arrow.css({ 'opacity': 0 });
+  }
+});
+
+var down = 0;
+$(function() {
+  $('.arrow').on('click', function(e) {
+    $('html, body').animate({ scrollTop: $('#about').offset().top}, 500, 'linear');
+  });
 });

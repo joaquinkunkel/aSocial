@@ -55,7 +55,7 @@ header .logo{
   font-size: 1.5rem !important;
   padding: 0 !important;
   margin: none !important;
-  transition: 0.1s all;
+  transition: 0.2s all;
 }
 
 header .logo:hover{
@@ -78,7 +78,7 @@ h4{
 
 #bootstrap-overrides a, #bootstrap-overrides button, #bootstrap-overrides .button, #bootstrap-overrides input, #bootstrap-overrides textarea, #bootstrap-overrides select{
   padding: 0.4rem 0.8rem;
-  transition: 0.1s all;
+  transition: 0.2s all;
   background: none;
   color: #4E77FF;
   margin: 5px;
@@ -118,7 +118,7 @@ input[type=date], select{
   height: 2.2rem;
 }
 
-a:hover, button:hover, input[type=text]:hover, input[type=text]:focus, input[type=date]:hover, input[type=date]:focus, textarea:focus, .active-button, select:hover{
+a:not(.arrow):hover, button:hover, input[type=text]:hover, input[type=text]:focus, input[type=date]:hover, input[type=date]:focus, textarea:focus, .active-button, select:hover, .post-buttons .button:hover{
   cursor: default;
   background: #4E77FF !important;
   color: white !important;
@@ -127,7 +127,7 @@ a:hover, button:hover, input[type=text]:hover, input[type=text]:focus, input[typ
 
 textarea{
   width: 100%;
-  transition: 0.1s all;
+  transition: 0.2s all;
 }
 
 .content{
@@ -155,7 +155,7 @@ form{
   margin: 0.6rem 0.1rem;
   border-radius: 5px;
   padding: 0.8rem;
-  transition: 0.1s all;
+  transition: 0.2s all;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row !important;
@@ -226,10 +226,10 @@ input[type=text], input[type=password]{
 
 .red{
   border-radius: 5rem !important;
-  color: #ff3d3d!important;
+  color: #a0a0a0 !important;
 }
 
-.red:hover{
+.red:hover, #logoutbutton:hover, #forget:hover{
   background: #ff3d3d !important;
   color: white !important;
 }
