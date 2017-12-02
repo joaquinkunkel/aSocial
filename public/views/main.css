@@ -38,6 +38,10 @@ header #gofriends{
   justify-content: center;
 }
 
+.block{
+  display: block !important;
+}
+
 .heading h2{
   margin-bottom: 0;
   font-size: 1.2rem !important;

@@ -8,7 +8,7 @@ function newFriendAjax(newFriend){
     },
     success: function(data){
       console.log("success in receiving new friend response", data);
-      var newFriendHTML = "<div class='card' id=0><div class='top'><p class='friendname'>" + data + "</p></div><form class='friend-buttons'><input type='text' class='id' value='" + personId + "'/><button type='button' class='removefriend'>Remove</button></form></div>";
+      var newFriendHTML = "<div class='card' id=0><div class='top'><p class='friendname'>" + data + "</p></div><form class='friend-buttons'><input type='text' class='id' value='" + personId + "'/><button type='button' class='red'>Remove</button></form></div>";
       for(var i = friendsLength; i >= 0; i--){
         $("#" + i).attr('id', i+1);
       }

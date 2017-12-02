@@ -132,6 +132,8 @@ $("#newpost").click(function(){
 });
 
 $("#postbutton").click(function(){
+  $("#writepost").css("display", "none");
+  $("#newpost").removeClass("active-button");
   $('.welcome').remove();
   if($("#post_text").val() != ''){
     var newPost = {
