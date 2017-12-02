@@ -1,0 +1,49 @@
+doctype html
+html(lang="en")
+  head
+    title aSocial
+    style
+      include main.css
+      include friends.css
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body(id="bootstrap-overrides")
+    header
+      form(id="gohome" action="/" method="post")
+        input(name="id" class="userid" style="display:none" value=_id)
+        input(type="submit" class="logo" value="aSocial")
+      form(id="gofriends" action="/friends" method="post")
+        input(name="id" class="userid" style="display:none" value=_id)
+        button(type="submit" class="friendsbutton" id="friendsbutton")
+          i(class="material-icons") people_outline
+      a(href="/login" class='red' id="logoutbutton")
+        i(class="material-icons") power_settings_new
+      a(target="_blank" href="/about" id="aboutbutton")
+        i(class="material-icons") info_outline
+    div(class="content")
+      div(class="heading")
+        h2= 'Hi, ' + name + '.'
+        p These are the people you consider your friends.
+        a(class="button" id="newfriend") New friend
+      div(class="card" id="addfriendcard")
+        h5 Who is your friend?
+        form(id="newfriend" action= "" method="post")
+            input(id="user_id" class="userid" style="display:none" value=_id)
+            input(type="text", name="friend_name", id="friend_name" autocomplete="off")
+            button(type="button" id="postbutton") Add friend
+      div(class="friends")
+        script var friendsLength = 0;
+        each friend, index in friends
+          script friendsLength++;
+          div(class="card" id=index)
+            div(class="top")
+              p(class="friendname")= friend
+            form(class="friend-buttons")
+              input(type="text" class="id" value=_id)
+              button(type="button" class="red") Remove
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script var personId = "#{_id}";
+    script(src="../js/friends.js")

@@ -1,0 +1,15 @@
+.card{
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: auto !important;
+}
+
+.friendname{
+  font-size: 1.3rem;
+  margin: 0.3rem !important;
+}
+
+#addfriendcard{
+  display: none;
+}
