@@ -88,7 +88,7 @@ function newPostAjax(newPost){
     },
     success: function(data){
       console.log("success in sending new post call", data);
-      location.reload();
+      location.href('/');
       // postId = data._id;
       // newPostHTML = "<div class='card post hidden' id=" + 0 + ">" + blankPostHTML + "</div>";
       // for(var i = postsLength; i >= 0; i--){

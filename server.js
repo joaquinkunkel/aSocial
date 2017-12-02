@@ -191,7 +191,6 @@ app.post('/login', function(req, res){
   Person.find({'email': body.user_email, 'password': body.user_password}, function(err, profiles){
     //console.log("finding!\nbody.email = " + body.user_email + "\nbody.password = " + body.user_password);
     if(profiles[0]){
-      console.log('logging in as ' + profiles[0]);
       res.render('feed', profiles[0]);
     }
     else{
