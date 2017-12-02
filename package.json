@@ -1,0 +1,46 @@
+{
+  "name": "asocial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "body-parser": "^1.18.1",
+    "crypto": "^1.0.1",
+    "d3": "^4.10.2",
+    "express": "^4.16.2",
+    "express-busboy": "^6.0.1",
+    "express-fileupload": "^0.3.0",
+    "file_upload": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "mariadb": "^0.0.2-security",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.1",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "pug": "^2.0.0-rc.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "sentiment": "^4.1.0"
+  },
+  "devDependencies": {
+    "should": "~7.1.0",
+    "mocha": "~2.3.3",
+    "supertest": "~1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaquinkunkel/aSocial.git"
+  },
+  "author": "Joaquin Kunkel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joaquinkunkel/aSocial/issues"
+  },
+  "homepage": "https://github.com/joaquinkunkel/aSocial#readme"
+}
