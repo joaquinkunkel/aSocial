@@ -1,0 +1,102 @@
+#bootstrap-overrides-login{
+  background: #4730c9;
+  color: #bffdff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: white !important;
+}
+
+
+#bootstrap-overrides-login a, #bootstrap-overrides-login button, #bootstrap-overrides-login .button, #bootstrap-overrides-login input, #bootstrap-overrides-login textarea, #bootstrap-overrides-login select{
+  padding: 0.4rem 0.8rem;
+  transition: 0.1s all;
+  background: none;
+  color: white;
+  margin: 5px;
+  outline-color: transparent;
+  outline-style: none;
+}
+
+#bootstrap-overrides-login input, #bootstrap-overrides-login textarea, #bootstrap-overrides-login select{
+  border-color: white !important;
+}
+
+#bootstrap-overrides-login a:hover, #bootstrap-overrides-login button:hover, #bootstrap-overrides-login .button:hover, #bootstrap-overrides-login input:hover, #bootstrap-overrides-login input:focus, #bootstrap-overrides-login textarea:hover, #bootstrap-overrides-login textarea:focus, #bootstrap-overrides-login select:hover, #bootstrap-overrides-login select:focus{
+  background: white !important;
+  color: #4E77FF !important;
+}
+
+#bootstrap-overrides-login #logincontent{
+  margin-top: 30vh;
+  width: 90%;
+  max-width: 1000px;
+}
+
+#logincontent{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#loginbutton{
+  font-size: 1.2rem;
+  padding: 0.6rem 1.5rem !important;
+  margin: 0.6rem !important;
+  border-radius: 1rem !important;
+  font-weight: bold;
+}
+
+.about{
+  max-width: 500px;
+  margin: 0 auto;
+  margin-left: 2rem;
+  padding-left: 3rem;
+  border-left: 1px solid white;
+}
+
+.loginform{
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+input::placeholder{
+  color: white;
+  opacity: 0.5;
+}
+
+#signupform{
+  margin-top: 2rem;
+}
+
+.arrow{
+  display: none !important;
+  text-align: center;
+  color: white;
+  cursor: default;
+  font-size: 2rem !important;
+}
+
+@media only screen and (max-width: 1000px){
+  #logincontent{
+    display: block;
+  }
+
+  .loginform{
+    height: 48vh;
+    margin-top: 37vh;
+  }
+
+  .arrow{
+    display: block !important;
+  }
+
+  .about{
+    margin-top: 2rem;
+    border-top: 1px solid white;
+    border-left: none;
+    padding: 3rem 0 0 0;
+    margin-left: auto;
+  }
+}
