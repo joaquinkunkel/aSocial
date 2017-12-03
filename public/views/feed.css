@@ -28,7 +28,13 @@ input[type=text]{
   opacity: 1;
 }
 
+td{
+  vertical-align: top;
+  padding: 0.2rem;
+}
+
 .post-buttons{
+  width: 100%;
   opacity: 0.8;
   display: flex;
   align-items: center;
@@ -129,12 +135,12 @@ input[type=text]{
   width: 100%;
 }
 
-.card .commentme, .card .share{
+.card .commentme, .card .share, .card .reactme{
   //color: rgba(0, 0, 0, 0.5) !important;
   margin: 0.5rem !important;
 }
 
-.reactme{
+.reactview{
   text-align: center;
   background: rgba(0, 0, 0, 0.1);
   display: flex;
@@ -152,14 +158,11 @@ input[type=text]{
   color: white;
 }
 
-.card .reactme:hover, .card .reactme:focus{
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .rdropdown{
   display: none;
   padding: 0.5rem;
   position: absolute;
+  top: 7.5rem;
   background-color: white;
   box-shadow: 0 3px 40px rgba(0, 0, 0, 0.15);
   border-radius: 1rem;

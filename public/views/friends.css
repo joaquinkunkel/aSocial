@@ -2,7 +2,15 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  width: auto !important;
+  width: 150px !important;
+  margin: 0.5rem;
+}
+
+.friends{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .friendname{

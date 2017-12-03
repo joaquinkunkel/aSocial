@@ -5,13 +5,16 @@ var date = new Date;
 var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + date.getDate());
 var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
 var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
-var blankPostHTML = '<p class="post_id"></p><table class="top"><tbody><tr><td><div class="reactme" style="background:#ff6100;"><i class="material-icons big white">new_releases</i></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted                      </p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div></td><td class="top"><p class="date">December 2, 2017</p><p class="text">I hate myself</p></td></tr></tbody></table><div class="post-buttons"><i class="button material-icons commentme">mode_comment</i><i class="button material-icons share">send</i><i class="button material-icons forget red" id="forget">delete</i></div><div class="cheading hidden"><hr></div><form class="commentform"><textarea class="comment-text" rows="1"></textarea><button class="comment-button" type="button"><i class="material-icons">check</i></button></form><form class="shareform"><div class="part1"><p class="faded">Share with</p><select class="recipient"></select></div><div class="part2"><p class="from faded">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button"><i class="material-icons">check</i></button></form><div class="comments"></div>';
+var blankPostHTML = '<p class="post_id">5a23a21e6943fd4f6f10c1ec</p><table class="top"><tbody><tr><td><div class="reactview" style="background:undefined; opacity:1;"><h5 class="blankreaction">...</h5></div></td><td class="top"><p class="date">December 3, 2017</p><p class="text" style="opacity:1;">Yet another one</p></td></tr></tbody></table><div class="post-buttons"><i class="button material-icons reactme">mood</i><i class="button material-icons commentme">mode_comment</i><i class="button material-icons share">send</i><i class="button material-icons forget red" id="forget">delete</i></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted                      </p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div><div class="cheading"><hr></div><form class="commentform"><!--input(type="text" class="id" value=_id)--><!--input(type="text" class="id" value=post._id)--><textarea class="comment-text" rows="1"></textarea><button class="comment-button" type="button"><i class="material-icons">check</i></button></form><form class="shareform"><div class="part1"><p class="faded">Share with</p><select class="recipient"><option class="self" value="self">Joaquin</option><option value="and I">and I</option><option value="Myself">Myself</option><option value="Sara">Sara</option><option value="Reine">Reine</option><option value="Karime">Karime</option><option value="Elisa">Elisa</option><option value="Erik">Erik</option><option value="Daniel">Daniel</option><option value="Arantza">Arantza</option><option value="Lizard Person">Lizard Person</option><option value="Snake">Snake</option><option value="Tayla">Tayla</option></select></div><div class="part2"><p class="from faded">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button"><i class="material-icons">check</i></button></form><div class="comments"></div>'
 
-$('.post').hover(function(){
-  $(this).addClass('hover');
-}, function(){
-  $(this).removeClass('hover');
-});
+
+function postHover(){
+  $('.post').hover(function(){
+    $(this).addClass('hover');
+  }, function(){
+    $(this).removeClass('hover');
+  });
+}
 
 //================SHOWING A MESSAGE=================//
 
@@ -45,7 +48,7 @@ $(".forget").click(function(){
     },
     success: function(data){
       $('#' + postIndex + ' .text').css('opacity', data.memory);
-      $('#' + postIndex + ' .reactme').css('opacity', data.memory);
+      $('#' + postIndex + ' .reactview').css('opacity', data.memory);
       lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> You have attempted to forget your post.</div>")
     }
   });
@@ -97,8 +100,8 @@ function newPostAjax(newPost){
       $(".posts").prepend(newPostHTML);
 
       $("#0").find(".post_id").html(postId);
-      $("#0").find(".reactme").html("<h5 class='blankreaction'>...</h5>");
-      $("#0").find(".reactme").css("background", "rgba(0, 0, 0, 0.14)");
+      $("#0").find(".reactview").html("<h5 class='blankreaction'>...</h5>");
+      $("#0").find(".reactview").css("background", "rgba(0, 0, 0, 0.14)");
       $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
       $("#0").find(".top .text").html(data.text);
       $("#0").find(".comments").html("");
@@ -113,6 +116,9 @@ function newPostAjax(newPost){
       enableShare();
       enableReactions();
       $("#post_text").val("");
+      checkComments();
+      postHover();
+
     }
   });
 };
@@ -178,19 +184,22 @@ function enableShare(){
   };
 
   $(".share").unbind().click(function(){
+    var postDiv = $(this).closest(".post");
+    postDiv.find(".reactme").removeClass("active-button");
+    postDiv.find(".rdropdown").removeClass("show");
     var shareForm = $(this).parent().parent().find(".shareform")
     if(shareForm.css('display') != 'flex'){
-      $(this).parent().parent().find(".commentform").css("display", "none");
-      $(this).parent().find(".commentme").removeClass("active-button");
+      postDiv.find(".commentform").css("display", "none");
+      postDiv.find(".commentme").removeClass("active-button");
       $(this).addClass("active-button");
       shareForm.css('display', 'flex');
-      $(this).parent().parent().find(".cheading").css("display", "block");
+      postDiv.find(".cheading").css("display", "block");
     }
     else{
       $(this).removeClass("active-button");
       shareForm.css('display', 'none');
-      if($(this).parent().parent().find('.comments').html() == '')
-        $(this).parent().parent().find(".cheading").css("display", "none");
+      if(postDiv.find('.comments').html() == '')
+        postDiv.find(".cheading").css("display", "none");
     }
   });
 
@@ -322,7 +331,11 @@ function checkNotifications(newNoti){
 
 function enableComments(){
   $(".commentme").unbind().click(function(){
+    var postDiv = $(this).closest(".post");
     $(this).parent().find(".shareform").css("display", "none");
+    $(this).parent().find(".reactme").removeClass("active-button");
+    postDiv.find(".reactme").removeClass("active-button");
+    postDiv.find(".rdropdown").removeClass("show");
     $(this).addClass("active-button");
     $(this).addClass("button");
     console.log('commentme clicked!');
@@ -383,16 +396,49 @@ function enableReactions(){
 
   /* Display or hide the dropdown menu */
   $(".reactme").unbind().click(function(){
-    if($(this).parent().find(".rdropdown").css("display") != "block")
-      $(this).parent().find(".rdropdown").addClass("show");
-    else $(this).parent().find(".rdropdown").removeClass("show");
+    var postDiv = $(this).closest(".post");
+    postDiv.find(".shareform").css("display", "none");
+    postDiv.find(".share").removeClass("active-button");
+    postDiv.find(".commentform").css("display", "none");
+    postDiv.find(".commentme").removeClass("active-button");
+    if(postDiv.find(".rdropdown").css("display") != "block"){
+      postDiv.find(".rdropdown").addClass("show");
+      $(this).addClass("active-button");
+    if(postDiv.find('.comments').html() == '')
+      postDiv.find(".cheading").css("display", "none");
+    }
+    else{
+      postDiv.find(".rdropdown").removeClass("show");
+      $(this).removeClass("active-button");
+    }
   });
 
+  $(".reactview").unbind().click(function(){
+    var postDiv = $(this).closest(".post");
+    if(postDiv.find(".rdropdown").css("display") != "block"){
+      postDiv.find(".rdropdown").addClass("show");
+      postDiv.find(".reactme").addClass("active-button");
+    }
+    else{
+      postDiv.find(".rdropdown").removeClass("show");
+      postDiv.find(".reactme").removeClass("active-button");
+    }
+  });
+
+  /* User selects a reaction */
   $(".roption").click(function(){
-    postId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().find(".post_id").html();
-    postIndex = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().attr("id");
+    var postDiv = $(this).closest(".post");
+    postId = postDiv.find(".post_id").html();
+    postIndex = postDiv.attr("id");
     reactionIndex = $(this).attr("id").split('r')[1];
-    var theIcon = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().find('.reactme');
+    var theIcon = postDiv.find('.reactview');
+    $(".rdropdown").removeClass("show");
+    postDiv.find(".reactme").removeClass('active-button');
+
+    theIcon.css('background', rColors[reactionIndex]);
+    theIcon.html('');
+    theIcon.append('<i class="material-icons big white">'+rIcons[reactionIndex]+'</i>');
+
     console.log(postId, postIndex, reactionIndex);
     $.ajax({
       url: '/reaction',
@@ -405,10 +451,7 @@ function enableReactions(){
       },
       success: function(data){
         console.log("success. we have reacted to the post: ", data);
-        $(".rdropdown").removeClass("show");
-        theIcon.css('background', rColors[data]);
-        theIcon.html('');
-        theIcon.append('<i class="material-icons big white">'+rIcons[data]+'</i>');
+
       }
     });
   });
@@ -432,7 +475,9 @@ function checkComments(){
 }
 
 $(document).ready(function(){
+  console.log($("#0").html());
   checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
+  postHover();
   if(image) $("#profpic").css('background', 'url("./uploads/' + image + '")');
 });

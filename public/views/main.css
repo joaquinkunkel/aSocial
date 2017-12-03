@@ -235,11 +235,11 @@ input[type=text], input[type=password]{
 
 .red{
   border-radius: 5rem !important;
-  color: #a0a0a0 !important;
+  color: #ff475c !important;
 }
 
 .red:hover, #logoutbutton:hover, #forget:hover{
-  background: #ff3d3d !important;
+  background: #ff475c !important;
   color: white !important;
 }
 

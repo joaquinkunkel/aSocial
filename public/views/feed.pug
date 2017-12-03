@@ -64,53 +64,54 @@ html(lang="en")
               p(class="post_id")= post._id
               table(class="top")
                 td
-                  div(class="reactme" style="background:" + rColors[post.reaction] + "; opacity:" + post.memory)
+                  div(class="reactview" style="background:" + rColors[post.reaction] + "; opacity:" + post.memory)
                     if(post.reaction != -1)
                       i(class="material-icons big white")= rIcons[post.reaction]
                     else
                       h5(class="blankreaction") ...
-                  div(class="rdropdown")
-                    p This makes me feel...
-                    table(class="roptions")
-                      td(class="column")
-                        div(class="roption" id="r0")
-                          i(class="material-icons") favorite
-                          p kind
-                        div(class="roption" id="r1")
-                          i(class="material-icons") people_outline
-                          p extraverted
-                        div(class="roption" id="r2")
-                          i(class="material-icons") public
-                          p open
-                        div(class="roption" id="r3")
-                          i(class="material-icons") school
-                          p diligent
-                        div(class="roption" id="r4")     
-                          i(class="material-icons") whatshot
-                          p neurotic
-                      td(class="column")
-                        div(class="roption" id="r5")
-                          i(class="material-icons") new_releases
-                          p evil
-                        div(class="roption" id="r6") 
-                          i(class="material-icons") book
-                          p introverted                      
-                        div(class="roption" id="r7")
-                          i(class="material-icons") lock_outline
-                          p intolerant
-                        div(class="roption" id="r8")
-                          i(class="material-icons") alarm_off
-                          p lazy
-                        div(class="roption" id="r9")
-                          i(class="material-icons") nature
-                          p stable
                 td(class="top")
                   p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
                   p(class="text" style="opacity:" + post.memory)= post.text
               div(class="post-buttons")
+                i(class="button material-icons reactme") mood
                 i(class="button material-icons commentme") mode_comment
                 i(class="button material-icons share") send
                 i(class="button material-icons forget red" id="forget") delete
+              div(class="rdropdown")
+                  p This makes me feel...
+                  table(class="roptions")
+                    td(class="column")
+                      div(class="roption" id="r0")
+                        i(class="material-icons") favorite
+                        p kind
+                      div(class="roption" id="r1")
+                        i(class="material-icons") people_outline
+                        p extraverted
+                      div(class="roption" id="r2")
+                        i(class="material-icons") public
+                        p open
+                      div(class="roption" id="r3")
+                        i(class="material-icons") school
+                        p diligent
+                      div(class="roption" id="r4")     
+                        i(class="material-icons") whatshot
+                        p neurotic
+                    td(class="column")
+                      div(class="roption" id="r5")
+                        i(class="material-icons") new_releases
+                        p evil
+                      div(class="roption" id="r6") 
+                        i(class="material-icons") book
+                        p introverted                      
+                      div(class="roption" id="r7")
+                        i(class="material-icons") lock_outline
+                        p intolerant
+                      div(class="roption" id="r8")
+                        i(class="material-icons") alarm_off
+                        p lazy
+                      div(class="roption" id="r9")
+                        i(class="material-icons") nature
+                        p stable
               div(class="cheading")
                 hr
               form(class="commentform")
