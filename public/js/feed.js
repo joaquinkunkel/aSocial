@@ -413,6 +413,12 @@ function enableReactions(){
     }
   });
 
+  $(".close").unbind().click(function(){
+    var postDiv = $(this).closest(".post");
+    $(this).closest(".rdropdown").removeClass("show");
+    postDiv.find(".reactme").removeClass("active-button");
+  });
+
   $(".reactview").unbind().click(function(){
     var postDiv = $(this).closest(".post");
     if(postDiv.find(".rdropdown").css("display") != "block"){
