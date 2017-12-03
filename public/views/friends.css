@@ -2,6 +2,9 @@
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+.friend{
   width: 200px !important;
   margin: 0.5rem;
 }
