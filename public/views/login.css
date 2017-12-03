@@ -1,5 +1,8 @@
 #bootstrap-overrides-login{
-  background: #4730c9;
+  background: linear-gradient(60deg, rgba(117,0,227,1) 0%, rgba(23,85,255,1) 100%); /* w3c */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
   color: #bffdff;
 }
 
@@ -48,10 +51,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
 }
 
-.about-text{
-  width: 80% !important;
-}
-
 .about{
   max-width: 500px;
   margin: 0 auto;
@@ -82,7 +81,12 @@ input::placeholder{
   font-size: 2rem !important;
 }
 
+.content{
+  margin-bottom: 4rem;
+}
+
 @media only screen and (max-width: 1000px){
+
   #logincontent{
     display: block;
   }

@@ -4,6 +4,7 @@
 
 body, #bootstrap-overrides{
   background-color: rgba(0,0,0,0.02);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif !important;
 }
 
 header{
