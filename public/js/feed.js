@@ -49,7 +49,7 @@ $(".forget").click(function(){
     success: function(data){
       $('#' + postIndex + ' .text').css('opacity', data.memory);
       $('#' + postIndex + ' .reactview').css('opacity', data.memory);
-      lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> You have attempted to forget your post.</div>")
+      lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> This post is less visible to you, but we cannot guarantee it will disappear. </div>")
     }
   });
 });
@@ -106,7 +106,7 @@ function newPostAjax(newPost){
       $("#0").find(".top .text").html(data.text);
       $("#0").find(".comments").html("");
 
-      $("#0").find(".recipient").append("<option class='self' value = 'self'>" + personName.split(' ')[0] + "</option>");
+      $("#0").find(".recipient").html("<option class='self' value = 'self'>" + personName.split(' ')[0] + "</option>");
       for(var i = 0; i < user_friends.length; i++){
         $("#0").find(".recipient").append("<option value=" + user_friends[i] + ">" + user_friends[i] + "</option>");
       }

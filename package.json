@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "body-parser": "^1.18.1",

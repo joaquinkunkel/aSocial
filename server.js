@@ -3,12 +3,11 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var app = new express();
 var pug = require('pug');
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8019;
 var bp = require('body-parser');
 var fs = require('fs');
-//var sgMail = require('@sendgrid/mail');
+var sgMail = require('@sendgrid/mail');
 var multer = require('multer');
-var crypto = require('crypto');
 var morgan = require('morgan');
 
 ///IMAGE UPLOAD
@@ -43,35 +42,32 @@ app.post('/profpic', upload, function(req, res) {
 });
 
 ///EMAIL STUFF
-/*
 
 ///// LOAD IN THE API KEY FOR EMAIL
-fs.readFile('API_KEY.txt','utf-8',function(err,data){
-  if (err) throw err;
-  API_KEY = data.toString();
-  //console.log('we have successfully read and stored our mailgun api key');
-});
+API_KEY = fs.readFileSync('./API_KEY.txt','utf-8');
 
-function sendMail(){
-  console.log('sending an email!');
-
-  var recipient = 'joaquinkunkel@gmail.com';
-  var sender = 'aSocial <jek537@nyu.edu>';
-  var email_body = 'Congratulations! You have successfully set up an aSocial account.'
+function sendMail(recipient, name){
 
   sgMail.setApiKey(API_KEY);
 
-  var  msg = {
-    to: recipient, //recipient, which is the nyuad.facilities
+  var msg = {
+    to: recipient,
     from: 'aSocial <jek537@nyu.edu>',
     subject: 'Welcome to aSocial',
-    html: email_body
+    html: '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family: -apple-system, BlinkMacSystemFont, \'Helvetica\', sans-serif;"><a style="color: black!important; text-decoration: none!important" href="https://asocialnetwork.herokuapp.com"><h1 style="text-align:center">aSocial</h1></a><p>Hello, ' + name.split(' ')[0] + '!<br/><br/>Welcome to aSocial, the only social network that gives you no way of interacting with its other users. This is a space for you to craft an online identity without having to worry about an audience other than yourself. It is also a space for you to visit when you need a break from online social interaction when you need it.</p><p>If you wish to learn more about aSocial, please visit the <a href="https://asocial.herokuapp.com/about">about page</a>, or <a href="mailto:joaquin.kunkel@nyu.edu">contact the developer</a>.</p><p>Enjoy your alone time!<br/><div style="display:flex; align-items:center; justify-content:center; width: 100%;"><a style="text-decoration: none" href="https://asocialnetwork.herokuapp.com"><h3 style="background:linear-gradient(60deg, rgba(117,0,227,1) 0%, rgba(23,85,255,1) 100%); color:white; border-radius:3px; padding: 0.6rem; font-weight: normal;">Go to aSocial</h3></a></div></body></html>'
   };
-  sgMail.send(msg);
+
+  sgMail.send(msg, function(error, result){
+    if (error) {
+      console.log(error.response.body.errors);
+    }
+    else {
+      console.log('celebrate');
+    }
+  });
 }
-*/
 
-
+sendMail('jek537@nyu.edu', 'Joaquin Kunkel');
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -170,6 +166,7 @@ app.post('/newprofile', function(req, res){
       if(err){
         return console.error(err);
       }else{
+        sendMail(profile.email, profile.name);
         console.log('Successfully saved new profile: ' + profile.email);
         res.render('feed', profile);
       }

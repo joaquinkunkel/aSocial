@@ -4,7 +4,7 @@ html(lang="en")
     title aSocial
     style
       include main.css
-      include login.css
+      include about.css
     link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
@@ -12,14 +12,15 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body(id="bootstrap-overrides-login")
     header(style="padding: 10px")
-      a(href="/" class="logo") aSocial
+      a(href="/" class="logo" style="color: black!important; background:none!important") aSocial
     div(class="content about-text")
       h1
         br
         = 'About aSocial'
       p aSocial utilizes an interface and language akin to those found in online social networks. Its users can write, comment, react to, and share posts; change their profile picture; and even keep a friend list. What makes aSocial inherently different from social networks is the fact that each post, each picture, and each friend list is only visible to its author.
-      p The purpose of aSocial is not to connect people (hence its name). On the contrary, it aims to create an environment in which a person can build an image of themself without having to think about having an external audience. This provides an introspective and socially isolating experience whenever it is needed. Its underlying idea is that social networks often create a mere illusion of social interaction that hides their
-        a(class='link' href= 'http://www.timewellspent.io/') truly seclusive effects.
-      p The features in the user interface of aSocial are aligned to this principle. For example, clicking the Share (
-        i(class='material-icons' style='font-size: 1rem') send
-        span ) button on a post gives the user two options: they can either share it with a friend on their friend list (which will not actually send the post to anyone), or share it with their past or future self. If the user selects their future self, they can specify a date in which they will receive said post in a notification.
+      p The purpose of aSocial is not to connect people (hence its name). On the contrary, it aims to create an environment in which a person can build an image of themself without having to think about having an external audience. This provides an introspective experience -- a break from social interaction whenever it is needed.
+      p The features in the user interface of aSocial are aligned to this principle.
+      p For example, clicking the Share (
+          i(class='material-icons' style='font-size: 1rem') send
+          span ) button on a post gives the user two options: they can either share it with a friend on their friend list (which will not actually send the post to anyone), or share it with their past or future self. If the user selects their future self, they can specify a date in which they will receive said post in a notification.
+      p The friend list does not link to any other profiles in aSocial. Instead, it is a list of names that the user can edit in line with however their social relations change.

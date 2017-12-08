@@ -297,6 +297,7 @@ td{
 
   .heading{
     display: block !important;
+    margin-bottom: 2rem;
   }
   .heading h2, .heading p{
     text-align: center;

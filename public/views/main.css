@@ -2,9 +2,13 @@
   display: none;
 }
 
-body, #bootstrap-overrides{
+body, #bootstrap-overrides, #bootstrap-overrides-login{
   background-color: rgba(0,0,0,0.02);
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif;
+}
+
+#bootstrap-overrides .logo, #bootstrap-overrides-login .logo{
+  font-size: 1.8rem !important;
 }
 
 header{
@@ -15,7 +19,7 @@ header{
   flex-grow: row;
   margin: 0 auto;
   text-align: center;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   position: fixed;
   top: 0;
   width: 100%;
