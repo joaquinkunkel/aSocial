@@ -4,14 +4,12 @@
 
 body, #bootstrap-overrides, #bootstrap-overrides-login{
   background-color: rgba(0,0,0,0.02);
+  color: #414660;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif;
 }
 
-#bootstrap-overrides .logo, #bootstrap-overrides-login .logo{
-  font-size: 1.8rem !important;
-}
-
 header{
+  box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05);
   padding: 0.6rem;
   align-items: center;
   justify-content: center;
@@ -19,7 +17,6 @@ header{
   flex-grow: row;
   margin: 0 auto;
   text-align: center;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   position: fixed;
   top: 0;
   width: 100%;
@@ -57,24 +54,27 @@ header #gofriends{
 }
 
 header .logo{
-  color: black !important;
+  font-weight: 400;
+  color: #414660 !important;
   border: none !important;
   border-radius: 1px !important;
   background: none !important;
-  font-size: 1.5rem !important;
+  font-size: 1.5rem;
   padding: 0 !important;
   margin: none !important;
   transition: 0.2s all;
 }
 
 header .logo:hover{
-  color: #4E77FF !important;
-  background: white !important;
+  color: #4f8fff !important;
+  background: none !important;
   text-decoration: none !important;
   background: none;
 }
 
 .nheader{
+  font-size: 1.2rem !important;
+  margin-bottom: 1rem;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -89,7 +89,7 @@ h4{
   padding: 0.4rem 0.8rem;
   transition: 0.2s all;
   background: none;
-  color: #4E77FF;
+  color: #007bff;
   margin: 5px;
   outline-color: transparent;
   outline-style: none;
@@ -101,10 +101,10 @@ h4{
 
 #bootstrap-overrides .light:hover{
   background: white !important;
-  color: #4E77FF !important;
+  color: #3f7fff !important;
 }
 
-#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton, .sharebutton, .comment-button{
+#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton, .sharebutton, .comment-button, .removefriend{
   display: table-cell;
   border-radius: 50%;
   height: 2.3rem;
@@ -129,7 +129,7 @@ input[type=date], select{
 
 a:not(.arrow):hover, button:hover, input[type=text]:hover, input[type=text]:focus, input[type=date]:hover, input[type=date]:focus, textarea:focus, .active-button, select:hover, .post-buttons .button:hover{
   cursor: default;
-  background: #4E77FF !important;
+  background: #3f7fff !important;
   color: white !important;
   text-decoration: none !important;
 }
@@ -137,6 +137,10 @@ a:not(.arrow):hover, button:hover, input[type=text]:hover, input[type=text]:focu
 a{
   cursor: pointer !important;
   padding: auto !important;
+}
+
+i{
+  cursor: default;
 }
 
 textarea{
@@ -158,15 +162,15 @@ form{
 }
 
 .card:hover{
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 5px rgba(37, 65, 94, 0.1);
   border: none;
 }
 
 .card{
   border: none !important;
   background: white;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  margin: 0.6rem 0.1rem;
+  box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05);
+  margin: 1rem 0.1rem;
   border-radius: 5px;
   padding: 0.8rem;
   transition: 0.2s all;
@@ -176,7 +180,7 @@ form{
 }
 
 input[type=text], select, textarea, input[type="date"], input[type=password], textarea:hover, input[type=text]:hover, input[type=password]:hover, select:hover{
-  border: 1px solid #4E77FF !important;
+  border: 1px solid #3f7fff !important;
   border-radius: 2px;
   box-shadow: none;
 }
@@ -197,7 +201,7 @@ input[type=text], select, textarea, input[type="date"], input[type=password], te
 
 .card .text{
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .card .top{
@@ -228,23 +232,23 @@ input[type=text], input[type=password]{
   bottom: -3rem;
   text-align: center;
   display: flex;
-  background: #4E77FF;
+  background: #3f7fff;
   color: white;
   width: 100%;
   height: 3rem;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 -4px 8px rgba(37, 65, 94,0.1);
   padding: 1rem;
 }
 
 .red{
   border-radius: 5rem !important;
-  color: #ff475c !important;
+  color: #ff603d !important;
 }
 
 .red:hover, #logoutbutton:hover, #forget:hover{
-  background: #ff475c !important;
+  background: #ff5e5e !important;
   color: white !important;
 }
 

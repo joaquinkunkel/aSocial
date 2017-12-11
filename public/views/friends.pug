@@ -25,25 +25,27 @@ html(lang="en")
         i(class="material-icons") power_settings_new
     div(class="content")
       div(class="heading block")
-        h2= 'Hi, ' + name + '.'
+        h2 Friends
         p These are the people you consider your friends.
-        a(class="button" id="newfriend") New friend
-      div(class="card" id="addfriendcard")
-        h5 Who is your friend?
-        form(id="newfriend" action= "" method="post")
-            input(id="user_id" class="userid" style="display:none" value=_id)
-            input(type="text", name="friend_name", id="friend_name" autocomplete="off")
-            button(type="button" id="postbutton") Add friend
+        div(class="nheader")
+          a(class="button" id="newfriend") New friend
       div(class="friends")
+        div(class="card" id="addfriendcard")
+          h5 Who is your friend?
+          form(id="newfriend" action= "" method="post")
+              input(id="user_id" class="userid" style="display:none" value=_id)
+              input(type="text", name="friend_name", id="friend_name" autocomplete="off")
+              button(class="sharebutton" id="postbutton")  
+                i(class="material-icons") check
         script var friendsLength = 0;
         each friend, index in friends
           script friendsLength++;
-          div(class="card" id=index)
+          div(class="card friend" id=index)
             div(class="top")
               p(class="friendname")= friend
             form(class="friend-buttons")
               input(type="text" class="id" value=_id)
-              button(type="button" class="red removefriend") Remove
+              i(class="button material-icons removefriend red") delete
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script var personId = "#{_id}";
     script(src="../js/friends.js")

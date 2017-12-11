@@ -5,8 +5,9 @@
 }
 
 .friend{
-  width: 200px !important;
   margin: 0.5rem;
+  width: 100%;
+  max-width: 400px;
 }
 
 .friends{
@@ -21,6 +22,19 @@
   margin: 0.3rem !important;
 }
 
+.heading{
+  margin-top: 6rem !important;
+}
+
+#newfriend{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+
 #addfriendcard{
+  max-width: 400px;
+  width: 100%;
   display: none;
 }

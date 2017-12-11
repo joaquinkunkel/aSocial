@@ -41,6 +41,7 @@ app.post('/profpic', upload, function(req, res) {
     res.end('Missing file');
 });
 
+/*
 ///EMAIL STUFF
 
 ///// LOAD IN THE API KEY FOR EMAIL
@@ -71,6 +72,7 @@ sendMail('jek537@nyu.edu', 'Joaquin Kunkel');
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+*/
 
 app.use(express.static('public'));
 app.use(bp.urlencoded({
@@ -166,7 +168,7 @@ app.post('/newprofile', function(req, res){
       if(err){
         return console.error(err);
       }else{
-        sendMail(profile.email, profile.name);
+        //sendMail(profile.email, profile.name);
         console.log('Successfully saved new profile: ' + profile.email);
         res.render('feed', profile);
       }
