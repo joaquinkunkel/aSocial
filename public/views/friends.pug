@@ -28,24 +28,25 @@ html(lang="en")
         h2 Friends
         p These are the people you consider your friends.
         div(class="nheader")
-          a(class="button" id="newfriend") New friend
+          a(class="button" id="newfriendb") New friend
       div(class="friends")
         div(class="card" id="addfriendcard")
           h5 Who is your friend?
-          form(id="newfriend" action= "" method="post")
+          form(id="newfriend" onsubmit="addFriend()" method="post")
               input(id="user_id" class="userid" style="display:none" value=_id)
               input(type="text", name="friend_name", id="friend_name" autocomplete="off")
-              button(class="sharebutton" id="postbutton")  
+              button(type="submit" class="sharebutton" id="postbutton")  
                 i(class="material-icons") check
-        script var friendsLength = 0;
-        each friend, index in friends
-          script friendsLength++;
-          div(class="card friend" id=index)
-            div(class="top")
-              p(class="friendname")= friend
-            form(class="friend-buttons")
-              input(type="text" class="id" value=_id)
-              i(class="button material-icons removefriend red") delete
+        div(id="friendslist")
+          script var friendsLength = 0;
+          each friend, index in friends
+            script friendsLength++;
+            div(class="card friend" id=index)
+              div(class="top")
+                p(class="friendname")= friend
+              form(class="friend-buttons")
+                input(type="text" class="id" value=_id)
+                i(class="button material-icons removefriend red") delete
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script var personId = "#{_id}";
     script(src="../js/friends.js")

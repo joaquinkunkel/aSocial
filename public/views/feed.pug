@@ -33,25 +33,43 @@ html(lang="en")
         i(class="material-icons") power_settings_new
     div(class="content")
       div(class="heading")
-        div(id="profpicwrap")
-          div(id="profpic")
-          script var image = "#{image}";
-        form(id="ppform" class='outside' name="ppform" action="/profpic" method="post" enctype="multipart/form-data")
-          input(type="file" name="ppinput" id="ppinput" accept="image/*")
-        div
-          h2= 'Welcome, '
-            span(class="name")= name.split(' ')[0] + '.'
-          p This is where all your posts live.
+        td
+          div(id="profpicwrap")
+            div(id="profpic")
+            script var image = "#{image}";
+          form(id="ppform" class='outside' name="ppform" action="/profpic" method="post" enctype="multipart/form-data")
+            input(type="file" name="ppinput" id="ppinput" accept="image/*")
+          div
+            h2= 'Welcome, '
+              span(class="name")= name.split(' ')[0] + '.'
+            p This is where all your posts live.
+        td(style="vertical-align: middle; margin-left: 2rem!important")
+          i(class="material-icons big") navigate_next
       div(class="feedbody")
         script var postsLength = 0;
         script var notifications = [];
         div(class="nheader")
-          a(class="button" id="newpost") New post
+          div
+            a(class="button" id="newpost")
+              i(class="material-icons big") add
+            p(class="small") New post
+          div
+            a(class="button" id="gotodate")
+              i(class="material-icons big") date_range
+            p(class="small") Go to date
         form(id="writepost" action = "" method="post" class="card")
           h5 Write something...
+          p(class="date" style="width: 100%; margin: -0.5rem auto 0.1rem auto; padding: 0") This will be visible to no one else.
           input(id="user_id" class="userid" style="display:none" value=_id)
           textarea(rows="1", name="post_text", id="post_text" autocomplete="off")
           button(type="button" id="postbutton") Post
+        form(id="dateform" class="card")
+          div(id="yearpick")
+            p(style="margin-bottom: 0.3rem") Choose a year
+            div(class="dateoptions" id="yearoptions")
+          div(id="monthpick" class="hidden")
+            p(style="margin-bottom: 0.3rem") Choose a month
+            div(class="dateoptions" id="monthoptions")
         if posts.length == 0
           div(class="welcome card")
             p(class="text") Welcome to aSocial! You can start populating your profile by writing your first post.
@@ -67,7 +85,7 @@ html(lang="en")
                     if(post.reaction != -1)
                       i(class="material-icons big white")= rIcons[post.reaction]
                     else
-                      h5(class="blankreaction") ...
+                      p(class="big blankreaction") ...
                 td(class="top")
                   p(class="date")= months[post.date.month] + " " + post.date.day + ", " + post.date.year
                   p(class="text" style="opacity:" + post.memory)= post.text

@@ -127,7 +127,9 @@ app.post('/newfriend', function(req, res){
   Person.findById(req.body.id, function(err, person){
     person.friends.unshift(req.body.friend);
     person.save(function(err, doc){
-      res.send(doc.friends[0]);
+      if(!err)
+        console.log("SUCCESS IN SAVING NEW PERSON WITH FRIEND");
+      res.send(req.body.friend);
     });
   });
 });

@@ -4,8 +4,13 @@
 
 body, #bootstrap-overrides, #bootstrap-overrides-login{
   background-color: rgba(0,0,0,0.02);
-  color: #414660;
+  color: #6a6f82;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif;
+  font-size: 0.9rem;
+}
+
+#bootstrap-overrides h1, #bootstrap-overrides h2, #bootstrap-overrides h3, #bootstrap-overrides h4, #bootstrap-overrides h5, #bootstrap-overrides h6 {
+  color: #3e4663;
 }
 
 header{
@@ -73,10 +78,16 @@ header .logo:hover{
 }
 
 .nheader{
+  display: flex;
   font-size: 1.2rem !important;
   margin-bottom: 1rem;
   align-items: center;
   justify-content: center;
+  text-align: center;
+}
+
+.nheader div{
+  margin: 0 1rem;
   text-align: center;
 }
 
@@ -104,16 +115,22 @@ h4{
   color: #3f7fff !important;
 }
 
-#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton, .sharebutton, .comment-button, .removefriend{
+#profilebutton, #friendsbutton, #logoutbutton, #aboutbutton, #newpost, #gotodate, .sharebutton, .comment-button, .removefriend{
   display: table-cell;
   border-radius: 50%;
   height: 2.3rem;
   width: 2.3rem;
   text-align: center;
   vertical-align: middle;
-  padding-top: auto;
+  padding-top: auto !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+  cursor: pointer;
+}
+
+#newpost, #gotodate{
+  display: inline-table;
+  line-height: 0;
 }
 
 a:not(.arrow), button, .card .comment-button, .card #postbutton, .card .sharebutton, .button, input[type=submit]{
@@ -140,7 +157,7 @@ a{
 }
 
 i{
-  cursor: default;
+  cursor: pointer;
 }
 
 textarea{
@@ -162,7 +179,7 @@ form{
 }
 
 .card:hover{
-  box-shadow: 0 1px 5px rgba(37, 65, 94, 0.1);
+  box-shadow: 0 1px 1px rgba(37, 65, 94, 0.1);
   border: none;
 }
 
@@ -186,8 +203,8 @@ input[type=text], select, textarea, input[type="date"], input[type=password], te
 }
 
 .card .date, .faded{
-  font-size: 1rem;
-  opacity: 0.4;
+  font-size: 0.9rem;
+  opacity: 0.6;
   padding: 0;
   margin: 0;
 }
@@ -201,7 +218,7 @@ input[type=text], select, textarea, input[type="date"], input[type=password], te
 
 .card .text{
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .card .top{
@@ -238,13 +255,13 @@ input[type=text], input[type=password]{
   height: 3rem;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 -4px 8px rgba(37, 65, 94,0.1);
+  box-shadow: 0 0 1rem rgba(37, 65, 94,0.1);
   padding: 1rem;
 }
 
 .red{
   border-radius: 5rem !important;
-  color: #ff603d !important;
+  color: #ff5e66 !important;
 }
 
 .red:hover, #logoutbutton:hover, #forget:hover{
@@ -261,6 +278,20 @@ input[type=text], input[type=password]{
   cursor: default;
   font-size: 1rem !important;
 }
+
+.big{
+  font-size: 2rem;
+}
+
+.white{
+  color: white;
+}
+
+.show{
+  display: block;
+}
+
+.
 
 @media only screen and (max-width: 600px){
   .message{

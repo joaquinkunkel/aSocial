@@ -6,7 +6,8 @@ var currentDate = String(date.getFullYear() + '' + (date.getMonth() + 1) + '' + 
 var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
 var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
 var blankPostHTML = '<p class="post_id">5a23a21e6943fd4f6f10c1ec</p><table class="top"><tbody><tr><td><div class="reactview" style="background:undefined; opacity:1;"><h5 class="blankreaction">...</h5></div></td><td class="top"><p class="date">December 3, 2017</p><p class="text" style="opacity:1;">Yet another one</p></td></tr></tbody></table><div class="post-buttons"><i class="button material-icons reactme">mood</i><i class="button material-icons commentme">mode_comment</i><i class="button material-icons share">send</i><i class="button material-icons forget red" id="forget">delete</i></div><div class="rdropdown"><p>This makes me feel...</p><table class="roptions"><tbody><tr><td class="column"><div class="roption" id="r0"><i class="material-icons">favorite</i><p>kind</p></div><div class="roption" id="r1"><i class="material-icons">people_outline</i><p>extraverted</p></div><div class="roption" id="r2"><i class="material-icons">public</i><p>open</p></div><div class="roption" id="r3"><i class="material-icons">school</i><p>diligent</p></div><div class="roption" id="r4">    <i class="material-icons">whatshot</i><p>neurotic</p></div></td><td class="column"><div class="roption" id="r5"><i class="material-icons">new_releases</i><p>evil</p></div><div class="roption" id="r6"> <i class="material-icons">book</i><p>introverted                      </p></div><div class="roption" id="r7"><i class="material-icons">lock_outline</i><p>intolerant</p></div><div class="roption" id="r8"><i class="material-icons">alarm_off</i><p>lazy</p></div><div class="roption" id="r9"><i class="material-icons">nature</i><p>stable</p></div></td></tr></tbody></table></div><div class="cheading"><hr></div><form class="commentform"><!--input(type="text" class="id" value=_id)--><!--input(type="text" class="id" value=post._id)--><textarea class="comment-text" rows="1"></textarea><button class="comment-button" type="button"><i class="material-icons">check</i></button></form><form class="shareform"><div class="part1"><p class="faded">Share with</p><select class="recipient"><option class="self" value="self">Joaquin</option><option value="and I">and I</option><option value="Myself">Myself</option><option value="Sara">Sara</option><option value="Reine">Reine</option><option value="Karime">Karime</option><option value="Elisa">Elisa</option><option value="Erik">Erik</option><option value="Daniel">Daniel</option><option value="Arantza">Arantza</option><option value="Lizard Person">Lizard Person</option><option value="Snake">Snake</option><option value="Tayla">Tayla</option></select></div><div class="part2"><p class="from faded">from</p><input class="dateinput" type="date" name="date"></div><button class="sharebutton" type="button"><i class="material-icons">check</i></button></form><div class="comments"></div>'
-
+var writePostHTML;
+var active;
 
 function postHover(){
   $('.post').hover(function(){
@@ -22,37 +23,39 @@ function lowerMessage(message){
   $('body').append(message);
   $('.message').animate({
     bottom: 0
-  }, 300);
+  }, 200);
   setTimeout(function(){
     $('.message').animate({
       bottom: '-3rem'
-    }, 300, function(){
+    }, 200, function(){
       $('.message').remove();
     });
-  }, 10000);
+  }, 6000);
 }
 
 //================ FORGETTING A POST =================//
 
-$(".forget").click(function(){
-  postId = $(this).closest('.post').find('.post_id').html();
-  var postIndex = $(this).closest('.post').attr('id');
-  console.log(postId, postIndex);
-  $.ajax({
-    url: '/forget',
-    type: 'POST',
-    data: {
-      post_id: postId,
-      post_index: postIndex,
-      user_id: personId,
-    },
-    success: function(data){
-      $('#' + postIndex + ' .text').css('opacity', data.memory);
-      $('#' + postIndex + ' .reactview').css('opacity', data.memory);
-      lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> This post is less visible to you, but we cannot guarantee it will disappear. </div>")
-    }
+function enableForget(){
+  $(".forget").unbind().click(function(){
+    postId = $(this).closest('.post').find('.post_id').html();
+    var postIndex = $(this).closest('.post').attr('id');
+    console.log(postId, postIndex);
+    $.ajax({
+      url: '/forget',
+      type: 'POST',
+      data: {
+        post_id: postId,
+        post_index: postIndex,
+        user_id: personId,
+      },
+      success: function(data){
+        $('#' + postIndex + ' .text').css('opacity', data.memory);
+        $('#' + postIndex + ' .reactview').css('opacity', data.memory);
+        lowerMessage("<div class='message'><i class='material-icons'>check_circle</i> This post is less visible to you, but we cannot guarantee it will disappear. </div>")
+      }
+    });
   });
-});
+}
 
 //================ CHANGING THE PROFILE PICTURE ===================//
 
@@ -100,12 +103,13 @@ function newPostAjax(newPost){
       $(".posts").prepend(newPostHTML);
 
       $("#0").find(".post_id").html(postId);
-      $("#0").find(".reactview").html("<h5 class='blankreaction'>...</h5>");
+      $("#0").find(".reactview").html("<p class='big blankreaction'>...</p>");
       $("#0").find(".reactview").css("background", "rgba(0, 0, 0, 0.14)");
       $("#0").find(".top .date").html(months[data.date.month] + " " + data.date.day + ", " + data.date.year)
       $("#0").find(".top .text").html(data.text);
       $("#0").find(".comments").html("");
-
+      $("#writepost").css("display", "none");
+      $("#writepost").html(writePostHTML);
       $("#0").find(".recipient").html("<option class='self' value = 'self'>" + personName.split(' ')[0] + "</option>");
       for(var i = 0; i < user_friends.length; i++){
         $("#0").find(".recipient").append("<option value=" + user_friends[i] + ">" + user_friends[i] + "</option>");
@@ -113,55 +117,139 @@ function newPostAjax(newPost){
 
       $("#0").removeClass('hidden');
       enableComments();
+      enableForget();
       enableShare();
       enableReactions();
       $("#post_text").val("");
       checkComments();
       postHover();
-
+      enableNewPost();
     }
   });
 };
 
-var active = 0;
-$("#newpost").click(function(){
-  if(!active){
-    active = 1;
+function enableNewPost(){
+  active = 0;
+  $("#newpost").click(function(){
+    if(!active){
+      active = 1;
+      $(this).addClass("active-button");
+      $("#writepost").css("display", "flex");
+      $("#gotodate").removeClass("active-button");
+      $("#dateform").css("display", "none");
+    }else{
+      active = 0;
+      $(this).removeClass("active-button");
+      $(this).addClass("button");
+      $("#writepost").css("display", "none");
+    }
+  });
+
+  $("#postbutton").click(function(){
+
+    $("#newpost").removeClass("active-button");
+    $('.welcome').remove();
+    if($("#post_text").val() != ''){
+      var newPost = {
+        text: $("#post_text").val(),
+        date: {
+          day: date.getDate(),
+          month: date.getMonth(),
+          year: date.getFullYear()
+        },
+        comments: [],
+        reaction: 0,
+        image: '',
+        share_dates: [],
+        reaction: -1,
+        memory: 1
+      };
+      console.log(newPost);
+      newPostAjax(newPost);
+      writePostHTML = $("#writepost").html();
+      $("#writepost").html("<h1>...</h1>")
+      enableComments();
+      enableShare();
+      enableForget();
+      enableReactions();
+    }
+  });
+}
+
+//================ DISPLAY POSTS FROM A SPECIFIC DATE ===================//
+
+function appendMonths(){
+  $(".yearbutton").click(function(){
+    $("#monthoptions").html("");
+    var myYear = $(this).attr('id');
+    var month = '';
+    $(".post").each(function(){
+      var thisPost = $(this);
+      var postYear = $(this).find(".top .date").html().split(',')[1];
+      if(postYear == myYear){
+        var newMonth = $(this).find(".top .date").html().split(' ')[0];
+        if(newMonth != month){
+          month = newMonth;
+          $("#monthoptions").append("<h4 class='monthbutton' id='" + newMonth + "," + thisPost.attr("id") + "'>" + newMonth + "</h4>");
+        }
+      } else if(postYear < myYear)
+        return;
+    });
+
+    $("#yearpick").animate({"margin-right": "150px", "opacity": "0"}, 250, function(){
+      $("#yearpick").addClass("hidden");
+      $("#monthpick").removeClass("hidden");
+      $("#monthpick").css("margin-right", "-150px");
+      setTimeout(function(){$("#monthpick").animate(
+        {"opacity": "1", "margin-right": "0"}, 250
+      );}, 20);
+    });
+
+
+    $("#monthpick").css("opacity", "0");
+    $(".monthbutton").click(function(){
+      var scrollPost = $(this).attr("id").split(',')[1];
+      $('html, body').animate({
+        scrollTop: $("#" + scrollPost).offset().top - 85
+      }, 1500);
+      console.log($("#" + scrollPost).offset().top);
+    });
+
+  });
+}
+
+$("#gotodate").click(function(){
+  $("#dateform").html(ogDateForm);
+  active = 0;
+  if($("#dateform").css("display") == "none"){
+    $("#dateform").css("display", "flex");
     $(this).addClass("active-button");
-    $("#writepost").css("display", "flex");
-  }else{
-    active = 0;
-    $(this).removeClass("active-button");
-    $(this).addClass("button");
+    $("#newpost").removeClass("active-button");
     $("#writepost").css("display", "none");
+
+    //Choose a year...
+    var year = 0;
+    $(".post").each(function(){
+      var newYear = ($(this).find(".top .date").html().split(',')[1]);
+      if(newYear != year){
+        $("#yearoptions").append("<h4 class='yearbutton' id='" + newYear + "'>" + newYear + "</h4>");
+        year = newYear;
+      }
+    });
+
+    appendMonths();
+
+  }
+  else{
+    $("#dateform").css("display", "none");
+    $(this).removeClass("active-button");
   }
 });
 
-$("#postbutton").click(function(){
-  $("#writepost").css("display", "none");
-  $("#newpost").removeClass("active-button");
-  $('.welcome').remove();
-  if($("#post_text").val() != ''){
-    var newPost = {
-      text: $("#post_text").val(),
-      date: {
-        day: date.getDate(),
-        month: date.getMonth(),
-        year: date.getFullYear()
-      },
-      comments: [],
-      reaction: 0,
-      image: '',
-      share_dates: [],
-      reaction: -1,
-      memory: 1
-    };
-    console.log(newPost);
-    newPostAjax(newPost);
-    enableComments();
-    enableShare();
-    enableReactions();
-  }
+var date2go = [0, 0];
+
+$(".month").click(function(){
+
 });
 
 //================ SHARING A POST ===================//
@@ -324,6 +412,7 @@ function checkNotifications(newNoti){
   checkComments();
   enableComments();
   enableShare();
+  enableForget();
   enableReactions();
 }
 
@@ -481,7 +570,8 @@ function checkComments(){
 }
 
 $(document).ready(function(){
-  console.log($("#0").html());
+  ogDateForm = $("#dateform").html();
+  enableNewPost();
   checkNotifications();
   $('.dateinput').val(new Date().toDateInputValue());
   postHover();
