@@ -176,6 +176,38 @@ function enableNewPost(){
   });
 }
 
+//================ DISPLAY PERSONALITY TRAITS IN HEADER =================//
+
+function nextPage(){
+  $("#pg1").animate({"opacity": "0"}, 250, function(){
+    $("#pg1").addClass("hidden");
+    $("#pg2").css("opacity", "0");
+    $("#pg2").removeClass("hidden");
+    setTimeout(function(){$("#pg2").animate(
+      {"opacity": "1"}, 250
+    );}, 20);
+  });
+}
+
+function prevPage(){
+  $("#pg2").animate({"opacity": "0"}, 250, function(){
+    $("#pg2").addClass("hidden");
+    $("#pg1").css("opacity", "0");
+    $("#pg1").removeClass("hidden");
+    setTimeout(function(){$("#pg1").animate(
+      {"opacity": "1"}, 250
+    );}, 20);
+  });
+}
+
+$("#next-page").click(function(){
+  nextPage();
+});
+
+$("#prev-page").click(function(){
+  prevPage();
+});
+
 //================ DISPLAY POSTS FROM A SPECIFIC DATE ===================//
 
 function appendMonths(){

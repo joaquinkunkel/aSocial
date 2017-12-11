@@ -3,7 +3,7 @@
 }
 
 .heading{
-  justify-content: baseline !important;
+  justify-content: center !important;
 }
 
 .heading h2, .heading p{
@@ -281,6 +281,11 @@ td{
   margin-top: -1.5rem;
 }
 
+#prev-page{
+  margin-top: -0.5rem !important;
+  margin-left: -2rem !important;
+}
+
 .monthbutton, .yearbutton{
   padding: 0;
   margin: 0.4rem 0 !important;
@@ -292,8 +297,31 @@ td{
   color: #3f7fff !important;
 }
 
+#traits{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.trait{
+  margin: 0.3rem 1rem;
+}
+
+#next-page{
+  margin: auto -2rem auto 0.8rem !important;
+  padding: 0 !important;
+}
+
+.trait p, .trait h2{
+  text-align: center;
+}
 
 @media only screen and (max-width: 520px){
+
+  .nheader{
+    margin-top: -2.5rem;
+  }
 
   .post-buttons .forget{
     opacity: 0.8;

@@ -2,7 +2,8 @@
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var rIcons = ['favorite', 'people_outline', 'public', 'school', 'whatshot', 'new_releases', 'book', 'lock_outline', 'alarm_off', 'nature'];
   var rColors = ['#ff1975', '#ffaa00', '#0083ff', '#a100ff', '#ffbb00', '#ff6100', '#00d882', '#d83200', '#2b00d8', '#00d85d'];
-
+  var reactionWords = ['kind', 'outgoing', 'open', 'diligent', 'neurotic', 'evil', 'reserved', 'intolerant', 'lazy', 'stable'];
+  
 doctype html
 html(lang="en")
   head
@@ -33,29 +34,52 @@ html(lang="en")
         i(class="material-icons") power_settings_new
     div(class="content")
       div(class="heading")
-        td
-          div(id="profpicwrap")
-            div(id="profpic")
-            script var image = "#{image}";
-          form(id="ppform" class='outside' name="ppform" action="/profpic" method="post" enctype="multipart/form-data")
-            input(type="file" name="ppinput" id="ppinput" accept="image/*")
-          div
-            h2= 'Welcome, '
-              span(class="name")= name.split(' ')[0] + '.'
-            p This is where all your posts live.
-        td(style="vertical-align: middle; margin-left: 2rem!important")
-          i(class="material-icons big") navigate_next
+        div
+          div(id="pg1" class="pg1")
+            div(id="profpicwrap")
+              div(id="profpic")
+              script var image = "#{image}";
+            form(id="ppform" class='outside' name="ppform" action="/profpic" method="post" enctype="multipart/form-data")
+              input(type="file" name="ppinput" id="ppinput" accept="image/*")
+            div
+              h2= 'Welcome, '
+                span(class="name")= name.split(' ')[0] + '.'
+              p This is where all your posts live.
+            div
+              i(class="material-icons big button" id="next-page") navigate_next
+        div(id="pg2" class="pg2 hidden")
+          i(class="material-icons big button" id="prev-page") navigate_before
+          p This is your personality according to your posts' reactions.
+          div(id="traits")
+            each reaction, index in reactions
+              if(index < 5)
+                div(class="trait")
+                  if(reactions[index] == 0 && reactions[index+5] == 0)
+                    i(class="material-icons big") panorama_fish_eye
+                    h2 ?
+                    p= reactionWords[index] + " or " + reactionWords[index+5]
+                  else
+                    if(reactions[index] >= reactions[index+5])
+                      i(class="material-icons big" style="color:"+rColors[index])= rIcons[index]
+                      h2(style="color:"+rColors[index])= (Math.floor((reactions[index]/(reactions[index]+reactions[index+5]))*100)) + "%"
+                      p= reactionWords[index]
+                      p(class="small-label")= "(" + (100-(Math.floor((reactions[index]/(reactions[index]+reactions[index+5]))*100))) + "% " + reactionWords[index+5] + ")"
+                    else
+                      i(class="material-icons big" style="color:"+rColors[index+5])= rIcons[index+5]
+                      h2(style="color:"+rColors[index+5])= (Math.floor((reactions[index+5]/(reactions[index]+reactions[index+5]))*100)) + "%"
+                      p= reactionWords[index+5]
+                      p(class="small-label")= "(" + (100-(Math.floor((reactions[index+5]/(reactions[index]+reactions[index+5]))*100))) + "% " + reactionWords[index] + ")"
       div(class="feedbody")
         script var postsLength = 0;
         script var notifications = [];
         div(class="nheader")
           div
             a(class="button" id="newpost")
-              i(class="material-icons big") add
+              i(class="material-icons") add
             p(class="small") New post
           div
             a(class="button" id="gotodate")
-              i(class="material-icons big") date_range
+              i(class="material-icons") date_range
             p(class="small") Go to date
         form(id="writepost" action = "" method="post" class="card")
           h5 Write something...
@@ -104,7 +128,7 @@ html(lang="en")
                         p kind
                       div(class="roption" id="r1")
                         i(class="material-icons") people_outline
-                        p extraverted
+                        p outgoing
                       div(class="roption" id="r2")
                         i(class="material-icons") public
                         p open
@@ -120,7 +144,7 @@ html(lang="en")
                         p evil
                       div(class="roption" id="r6")
                         i(class="material-icons") book
-                        p introverted
+                        p reserved
                       div(class="roption" id="r7")
                         i(class="material-icons") lock_outline
                         p intolerant

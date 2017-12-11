@@ -37,7 +37,7 @@ header #gofriends{
   margin-left: 0.6rem;
 }
 
-.heading{
+.heading, .pg1, .pg2{
   text-align: center;
   display: flex;
   flex-wrap: wrap;
@@ -168,7 +168,7 @@ textarea{
 .content{
   margin: 5.5rem auto 0 auto;
   width: 95%;
-  max-width: 500px;
+  max-width: 570px;
   justify-content: center;
 }
 
@@ -259,6 +259,13 @@ input[type=text], input[type=password]{
   padding: 1rem;
 }
 
+.small-label{
+  font-size: 0.8rem !important;
+  opacity: 0.8;
+  margin: -1rem 0 0.4rem 0;
+  padding: 0;
+}
+
 .red{
   border-radius: 5rem !important;
   color: #ff5e66 !important;
@@ -280,7 +287,7 @@ input[type=text], input[type=password]{
 }
 
 .big{
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
 
 .white{
