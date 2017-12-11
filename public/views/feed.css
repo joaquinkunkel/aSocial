@@ -317,12 +317,24 @@ td{
   text-align: center;
 }
 
+.notifdiv{
+  background: rgba(255,255,255,0.5);
+  padding: 0.4rem;
+  margin: 1rem auto;
+  box-shadow: 0 0.1rem 0.1rem rgba(0,0,0,0.06);
+}
+
+.notifdiv .card{
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media only screen and (max-width: 520px){
 
   .nheader{
-    margin-top: -2.5rem;
+    margin-top: 0;
   }
-
   .post-buttons .forget{
     opacity: 0.8;
   }

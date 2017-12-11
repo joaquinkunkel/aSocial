@@ -124,6 +124,7 @@ function newPostAjax(newPost){
       checkComments();
       postHover();
       enableNewPost();
+      active = 0;
     }
   });
 };
@@ -172,6 +173,7 @@ function enableNewPost(){
       enableShare();
       enableForget();
       enableReactions();
+      enableNewPost();
     }
   });
 }
@@ -401,13 +403,12 @@ in the server and in the rendered Posts div. */
 function displayNotifications(nArray){
   $(".notifdiv").remove();
   if(nArray.length > 0){
-    $(".feedbody").prepend("<div class='notifdiv'><hr/><div class='nheader'><h4>Notifications</h4><a id='ntoggle'>hide</a></div><div class='notifications'></div></div>");
+    $(".feedbody").prepend("<div class='notifdiv'><div class='nheader'><h4>Notifications</h4><a id='ntoggle'>hide</a></div><div class='notifications'></div></div>");
     for(var i = 0; i < nArray.length; i++){
       console.log(nArray[i]);
       var postHTML = $("#" + nArray[i]).html();
       $(".notifications").append("<h5 class='notification-title'>Someone shared a post with you!</h5><div class='card post' id='" + nArray[i] + "'>" + postHTML + "</div>");
     }
-    $("<hr/>").insertAfter($(".notifications"));
   }
 }
 

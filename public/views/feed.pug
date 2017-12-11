@@ -56,8 +56,7 @@ html(lang="en")
                 div(class="trait")
                   if(reactions[index] == 0 && reactions[index+5] == 0)
                     i(class="material-icons big") panorama_fish_eye
-                    h2 ?
-                    p= reactionWords[index] + " or " + reactionWords[index+5]
+                    p(style="font-size: 0.8rem")= reactionWords[index] + " or " + reactionWords[index+5]
                   else
                     if(reactions[index] >= reactions[index+5])
                       i(class="material-icons big" style="color:"+rColors[index])= rIcons[index]
