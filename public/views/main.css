@@ -3,7 +3,7 @@
 }
 
 body, #bootstrap-overrides, #bootstrap-overrides-login{
-  background-color: rgba(0,0,0,0.02);
+  background-color: #fdfdfd;
   color: #6a6f82;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif;
   font-size: 0.9rem;
@@ -14,7 +14,8 @@ body, #bootstrap-overrides, #bootstrap-overrides-login{
 }
 
 header{
-  box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05);
+  /* box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05); */
+  border: 1px solid #e1e3e8;
   padding: 0.6rem;
   align-items: center;
   justify-content: center;
@@ -188,14 +189,16 @@ form{
 }
 
 .card:hover{
-  box-shadow: 0 1px 1px rgba(37, 65, 94, 0.1);
-  border: none;
+  background:white!important;
+  color: #3f4244;
+  border-color: #b8bec6 !important;
 }
 
 .card{
   border: none !important;
-  background: white;
-  box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05);
+  background: transparent !important;
+  /* box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05); */
+  border: 1px solid #e1e3e8 !important;
   margin: 1rem 0.1rem;
   border-radius: 5px;
   padding: 0.8rem;
@@ -306,8 +309,6 @@ input[type=text], input[type=password]{
 .show{
   display: block;
 }
-
-.
 
 @media only screen and (max-width: 600px){
   .message{

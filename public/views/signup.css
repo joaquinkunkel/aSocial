@@ -7,3 +7,16 @@ form p{
   margin-top: 0.8rem;
   margin-bottom: 0.2rem;
 }
+
+#bootstrap-overrides-login .red-text:hover, #bootstrap-overrides-login .red-text:focus, #bootstrap-overrides-login .red-text{
+  color: #ff9f84 !important;
+}
+
+#bootstrap-overrides-login .disabled-button{
+  opacity: 0.4;
+}
+
+#bootstrap-overrides-login .disabled-button:hover{
+  background: none !important;
+  color: white !important;
+}

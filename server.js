@@ -55,7 +55,7 @@ function sendMail(recipient, name){
     to: recipient,
     from: 'aSocial <jek537@nyu.edu>',
     subject: 'Welcome to aSocial',
-    html: '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family: -apple-system, BlinkMacSystemFont, \'Helvetica\', sans-serif;"><a style="color: black!important; text-decoration: none!important" href="https://asocialnetwork.herokuapp.com"><h1 style="text-align:center">aSocial</h1></a><p>Hello, ' + name.split(' ')[0] + '!<br/><br/>Welcome to aSocial, the only social network that gives you no way of interacting with its other users. This is a space for you to craft an online identity without having to worry about an audience other than yourself. It is also a space for you to visit when you need a break from online social interaction when you need it.</p><p>If you wish to learn more about aSocial, please visit the <a href="https://asocial.herokuapp.com/about">about page</a>, or <a href="mailto:joaquin.kunkel@nyu.edu">contact the developer</a>.</p><p>Enjoy your alone time!<br/><div style="display:flex; align-items:center; justify-content:center; width: 100%;"><a style="text-decoration: none" href="https://asocialnetwork.herokuapp.com"><h3 style="background:linear-gradient(60deg, rgba(117,0,227,1) 0%, rgba(23,85,255,1) 100%); color:white; border-radius:3px; padding: 0.6rem; font-weight: normal;">Go to aSocial</h3></a></div></body></html>'
+    html: '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family: -apple-system, BlinkMacSystemFont, \'Helvetica\', sans-serif;"><a style="color: black!important; text-decoration: none!important" href="https://asocialnetwork.herokuapp.com"><h1 style="text-align:center">aSocial</h1></a><p>Hello, ' + name.split(' ')[0] + '!<br/><br/>Welcome to aSocial! This is a space for you to craft an online identity without having to worry about an audience other than yourself. It is also a space for you to visit when you need a break from online social interaction.</p><p>If you wish to learn more about aSocial, please visit the <a href="http://joaquinkunkel.com:8019/about">about page</a>, or <a href="mailto:joaquin.kunkel@nyu.edu">contact the developer</a>.</p><p>Enjoy your alone time!<br/><div style="display:flex; align-items:center; justify-content:center; width: 100%;"><a style="text-decoration: none" href="http://joaquinkunkel.com:8019"><h3 style="background:linear-gradient(60deg, rgba(117,0,227,1) 0%, rgba(23,85,255,1) 100%); color:white; border-radius:3px; padding: 0.6rem; font-weight: normal;">Go to aSocial</h3></a></div></body></html>'
   };
 
   sgMail.send(msg, function(error, result){
@@ -68,12 +68,10 @@ function sendMail(recipient, name){
   });
 }
 
-sendMail('jek537@nyu.edu', 'Joaquin Kunkel');
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 */
-
 app.use(express.static('public'));
 app.use(bp.urlencoded({
   extended: true
@@ -182,6 +180,18 @@ app.post('/newprofile', function(req, res){
   var friendString = body.user_friends.replace(/, /g , ",");
   friendsArray = friendString.split(",");
   createProfile(body.user_name, body.user_email, body.user_password, friendsArray);
+});
+
+//Check if an email already exists
+app.post('/new-email', function(req, res){
+  var body = req.body;
+  Person.find({'email': body.email}, function(err, profiles){
+    if(profiles[0]){
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  });
 });
 
 //When someone tries to log in

@@ -164,7 +164,8 @@ td{
   position: absolute;
   top: 7.5rem;
   background-color: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px #575563;
+  /* border: 1px solid #b8bec6; */
   border-radius: 1rem;
   z-index: 1000;
 }
@@ -238,6 +239,7 @@ td{
   background: gray;
   background-repeat: no-repeat;
   background-position: center;
+  box-shadow: 0 2px 1px white;
   border-radius: 50%;
 }
 

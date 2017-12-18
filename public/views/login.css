@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #bootstrap-overrides-login #logincontent{
-  margin-top: 30vh;
+  margin-top: 35vh;
   width: 90%;
   max-width: 1000px;
 }
