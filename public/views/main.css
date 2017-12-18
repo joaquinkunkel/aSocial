@@ -191,14 +191,14 @@ form{
 .card:hover{
   background:white!important;
   color: #3f4244;
-  /*border-color: #b8bec6 !important;*/
+  border-color: #b8bec6 !important;
 }
 
 .card{
   border: none !important;
   background: transparent !important;
-  box-shadow: 0 1px 1px #eeedf2;
-  /*border: 1px solid #e1e3e8 !important;*/
+  /* box-shadow: 0 1px 1px #eeedf2; */
+  border: 1px solid #e1e3e8 !important;
   margin: 1rem 0.1rem;
   border-radius: 5px;
   padding: 0.8rem;

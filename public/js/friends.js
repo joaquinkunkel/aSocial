@@ -1,4 +1,6 @@
 var addFriendHTML;
+var friendIndex;
+var formHTML = $("#friendfeedback").html();
 
 function newFriendAjax(newFriend){
   $.ajax({
@@ -27,21 +29,40 @@ function newFriendAjax(newFriend){
   });
 };
 
+function showMessage(){
+  $("#friendmessage").removeClass("hidden");
+}
+
+function removeFriend(){
+  $("#friendfeedback").html("<h7 style='margin-bottom:-0.1rem'>Removing friend...</h5>");
+  $.ajax({
+    url: '/removefriend',
+    type: 'POST',
+    data: {
+      id: personId,
+      friend_index: friendIndex,
+    },
+    success: function(data){
+      console.log("success in receiving remove friend response", data);
+      $("#friendfeedback").html(formHTML);
+      hideForm();
+      $("#" + friendIndex).remove(); //The data returned by the server is the friend index.
+    }
+  });
+
+}
+
+function hideForm() {
+  $("#friendmessage").addClass("hidden");
+  $('#friendfeedback').find('input:text, input:password, select, textarea').val('');
+  $('#friendfeedback').find('input:radio, input:checkbox').prop('checked', false);
+}
+
+
 function enableFriend(){
   $(".removefriend").click(function(){
-    var friendIndex = $(this).parent().parent().attr('id');
-    $.ajax({
-      url: '/removefriend',
-      type: 'POST',
-      data: {
-        id: personId,
-        friend_index: friendIndex,
-      },
-      success: function(data){
-        console.log("success in receiving remove friend response", data);
-        $("#" + friendIndex).remove(); //The data returned by the server is the friend index.
-      }
-    });
+    friendIndex = $(this).parent().parent().attr('id');
+    showMessage();
   });
 
   $("#newfriendb").click(function(){
@@ -65,5 +86,9 @@ $(".sharebutton").click(function(){
 });
 }
 
-postButton();
-enableFriend();
+
+
+$(document).ready(function(){
+  postButton();
+  enableFriend();
+});

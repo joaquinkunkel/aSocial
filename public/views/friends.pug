@@ -35,7 +35,7 @@ html(lang="en")
           form(id="newfriend" onsubmit="addFriend()" method="post")
               input(id="user_id" class="userid" style="display:none" value=_id)
               input(type="text", name="friend_name", id="friend_name" autocomplete="off")
-              button(type="submit" class="sharebutton" id="postbutton")  
+              button(type="submit" class="sharebutton" id="postbutton")
                 i(class="material-icons") check
         div(id="friendslist")
           script var friendsLength = 0;
@@ -47,6 +47,31 @@ html(lang="en")
               form(class="friend-buttons")
                 input(type="text" class="id" value=_id)
                 i(class="button material-icons removefriend red") delete
+      div(id="friendmessage" class="hidden")
+        div(class="card" id="friendfeedback")
+          h5 Why is your friendship over?
+          p For increased closure, consider providing feedback as to why you're removing your friend.
+          input(type="radio" name="reason" value="0")
+          span We simply grew apart over time.
+          br
+          input(type="radio" name="reason" value="1")
+          span This person hurt my feelings.
+          br
+          input(type="radio" name="reason" value="2")
+          span Our principles clash too much.
+          br
+          input(type="radio" name="reason" value="3")
+          span I did something bad to this person.
+          br
+          input(type="radio" name="reason" value="4")
+          span We weren't friends in the first place.
+          br
+          input(type="radio" name="reason" value="5")
+          span Other:
+          input(type="text")
+          div(style="display: flex; align-items: center; justify-content: center; width: 100%;")
+            button(class="button" onclick="hideForm()") Cancel
+            button(type="button" onclick="removeFriend()" class="red") Remove Friend 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
     script var personId = "#{_id}";
     script(src="../js/friends.js")
