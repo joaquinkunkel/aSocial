@@ -82,11 +82,28 @@ input::placeholder{
 }
 
 .content{
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
+}
+
+footer{
+  width:100%;
+  text-align:center;
+  align-items:center;
+  justify-content:center;
+  display:flex;
+  min-width:365px;
+  margin-top:3rem;
+  position: absolute;
+  bottom: 0;
+  font-size: 0.8rem!important;
 }
 
 @media only screen and (max-width: 1000px){
 
+  footer{
+    position: relative;
+    bottom: auto;
+  }
   #logincontent{
     display: block;
   }
