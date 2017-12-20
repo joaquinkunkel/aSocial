@@ -15,7 +15,7 @@ body, #bootstrap-overrides, #bootstrap-overrides-login{
 
 header{
   /* box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05); */
-  border: 1px solid #e1e3e8;
+  border-bottom: 1px solid #e1e3e8;
   padding: 0.6rem;
   align-items: center;
   justify-content: center;
