@@ -242,6 +242,7 @@ function appendMonths(){
 
     $("#monthpick").css("opacity", "0");
     $(".monthbutton").click(function(){
+      $("#gotodate").removeClass("active-button");
       $("#dateform").css("display", "none");
       var scrollPost = $(this).attr("id").split(',')[1];
       $('html, body').animate({

@@ -3,7 +3,7 @@
 }
 
 body, #bootstrap-overrides, #bootstrap-overrides-login{
-  background-color: #fdfdfd;
+  background-color: #fcfcfc;
   color: #6a6f82;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', sans-serif;
   font-size: 0.9rem;
@@ -14,7 +14,7 @@ body, #bootstrap-overrides, #bootstrap-overrides-login{
 }
 
 header{
-  /* box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05); */
+  /*box-shadow: 0 1px 1px rgba(37, 65, 94, 0.05); */
   border-bottom: 1px solid #e1e3e8;
   padding: 0.6rem;
   align-items: center;
@@ -189,18 +189,19 @@ form{
 }
 
 .card:hover{
-  background:white!important;
-  color: #3f4244;
-  border-color: #b8bec6 !important;
+  /* background:white!important;*/
+  /*color: #3f4244;*/
+  /* border-color: #b8bec6 !important; */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .card{
   border: none !important;
-  background: transparent !important;
-  /* box-shadow: 0 1px 1px #eeedf2; */
-  border: 1px solid #e1e3e8 !important;
+  background: white !important;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  /* border: 1px solid #e1e3e8 !important; */
   margin: 1rem 0.1rem;
-  border-radius: 5px;
+  border-radius: 2px!important;
   padding: 0.8rem;
   transition: 0.2s all;
   display: flex;
